@@ -1,7 +1,9 @@
+import { Home } from 'pages';
+
 function App() {
   return (
-    <div className=''>
-      <div className=''></div>
+    <div className='w-full h-full'>
+      <Home />
     </div>
   );
 }
