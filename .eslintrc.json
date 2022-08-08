@@ -1,0 +1,16 @@
+{
+    "extends": [
+        "react-app",
+        "prettier"
+    ],
+    "plugins": [
+        "prettier",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "prettier/prettier": ["error", {
+            "endOfLine": "auto"
+          }],
+        "@typescript-eslint/no-unused-vars": "error"
+    }   
+}  
