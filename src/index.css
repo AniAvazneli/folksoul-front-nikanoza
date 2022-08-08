@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url("//cdn.web-fonts.ge/fonts/bpg-nino-mtavruli/css/bpg-nino-mtavruli.min.css");
+@import url("//cdn.web-fonts.ge/fonts/bpg-arial/css/bpg-arial.min.css");
 
 body {
   margin: 0;
