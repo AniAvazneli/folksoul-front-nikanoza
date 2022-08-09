@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
+
 const Button: React.FC<{
-  text: string;
   type: 'button' | 'submit' | 'reset' | undefined;
   id: string;
   onClick?: () => void;
   className: string;
+  children: ReactNode;
 }> = (props) => {
   return (
     <button
@@ -12,7 +14,7 @@ const Button: React.FC<{
       className={props.className}
       onClick={props.onClick}
     >
-      {props.text}
+      {props.children}
     </button>
   );
 };
