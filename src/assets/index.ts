@@ -3,3 +3,7 @@ export { default as Fb } from './fb.png';
 export { default as Twitter } from './twitter.png';
 export { default as YouTube } from './Youtube.png';
 export { default as Heading } from './Heading.png';
+export { default as Door } from './Door.png';
+export { default as Home } from './Home.png';
+export { default as Member } from './Member.png';
+export { default as Note } from './Note.png';

@@ -1,4 +1,5 @@
 import { Fb, Logo, Twitter, YouTube } from 'assets';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -8,12 +9,13 @@ const Home = () => {
     >
       <header id='header' className='w-full flex justify-between items-center'>
         <img src={Logo} alt='' />
-        <button
+        <Link
+          to={'/login'}
           id='login-btn'
           className='text-base text-[#FBFBFB] font-ninoMtavruli tracking-wide'
         >
           შესვლა
-        </button>
+        </Link>
       </header>
       <section
         id='animation-and-info'
