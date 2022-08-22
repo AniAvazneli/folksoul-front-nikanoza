@@ -7,3 +7,5 @@ export { default as Door } from './Door.png';
 export { default as Home } from './Home.png';
 export { default as Member } from './Member.png';
 export { default as Note } from './Note.png';
+export { default as Satellite } from './Satellite.png';
+export { default as TvFeet } from './TvFeet.png';

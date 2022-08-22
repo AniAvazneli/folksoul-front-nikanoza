@@ -1,7 +1,7 @@
 import { Door, Home, Member, Note, YouTube } from 'assets';
 import { Link, useLocation } from 'react-router-dom';
 
-const Menu: React.FC<{ className: string }> = (props) => {
+const Menu = () => {
   const { pathname } = useLocation();
   const linkStyle = (path: string) =>
     `w-full h-12 font-ninoMtavruli flex  items-center text-lg ${
