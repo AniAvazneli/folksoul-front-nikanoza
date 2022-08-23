@@ -9,3 +9,4 @@ export { default as Member } from './Member.png';
 export { default as Note } from './Note.png';
 export { default as Satellite } from './Satellite.png';
 export { default as TvFeet } from './TvFeet.png';
+export { default as Camera } from './Camera.png';
