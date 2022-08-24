@@ -3,12 +3,14 @@ import { Button, InfoHeader, Input } from 'components';
 import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-const AddMusician = () => {
+const AddMusician: React.FC<{ close: () => void }> = (props) => {
   const { register, handleSubmit } = useForm<{ image: FileList }>();
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 
-  const closeModalHandler = () => {};
+  const closeModalHandler = () => {
+    props.close();
+  };
   const uploadImageHandler = () => {
     imageInput.current?.click();
   };

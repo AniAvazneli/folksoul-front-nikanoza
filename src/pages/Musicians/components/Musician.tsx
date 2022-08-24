@@ -1,7 +1,9 @@
 import { Camera, YouTube } from 'assets';
 import { CircleBtn } from 'svg';
 
-const Musician: React.FC<{ className: string }> = (props) => (
+const Musician: React.FC<{ className: string; openModal: () => void }> = (
+  props
+) => (
   <div
     className={
       props.className +
@@ -13,7 +15,7 @@ const Musician: React.FC<{ className: string }> = (props) => (
       id='image-change-box'
       className='absolute w-10 h-10 flex items-center justify-center border-2 border-white bg-[#C4C4C4] rounded-full left-32 top-32'
     >
-      <img src={Camera} alt='' />
+      <img src={Camera} alt='' onClick={props.openModal} />
     </div>
     <span className='mt-5 font-ninoMtavruli text-white text-lg'>
       წევრის სახელი
