@@ -10,6 +10,8 @@ const Input: React.FC<{
   register: UseFormRegister<any>;
   validation: object;
   onChange?: () => void;
+  reference?: React.RefObject<HTMLInputElement>;
+  hidden?: boolean | undefined;
 }> = (props) => {
   return (
     <input
@@ -22,6 +24,8 @@ const Input: React.FC<{
         ...props.validation,
         onChange: props.onChange,
       })}
+      ref={props.reference}
+      hidden={props.hidden}
     />
   );
 };

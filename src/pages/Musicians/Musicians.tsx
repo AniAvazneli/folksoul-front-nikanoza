@@ -1,5 +1,5 @@
-import { Button, Card, InfoHeader, Menu } from 'components';
-import { Musician } from 'pages/Musicians/components';
+import { Button, Card, InfoHeader, Menu, Modal } from 'components';
+import { AddMusician, Musician } from 'pages/Musicians/components';
 
 const array = [1, 2, 3, 4, 5, 6];
 const itemsPerPage = 3;
@@ -47,6 +47,9 @@ const Musicians = () => (
         ახალი წევრი გვყავს?
       </Button>
     </Card>
+    <Modal>
+      <AddMusician />
+    </Modal>
   </div>
 );
 
