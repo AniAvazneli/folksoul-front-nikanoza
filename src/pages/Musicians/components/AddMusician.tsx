@@ -16,7 +16,7 @@ const AddMusician: React.FC<{ close: () => void }> = (props) => {
     setFileSelected(true);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const file = imageInput.current?.files
       ? imageInput.current?.files[0]
       : undefined;
@@ -47,6 +47,7 @@ const AddMusician: React.FC<{ close: () => void }> = (props) => {
         type='file'
         onChange={fileChangeHandler}
         hidden={true}
+        ref={imageInput}
       />
       {!fileSelected && (
         <Button

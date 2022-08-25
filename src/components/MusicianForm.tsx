@@ -23,7 +23,9 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
         label='name'
         placeholder='მუზიკანტის სახელი'
         id='new-musician-name'
-        className={`w-64 h-14 border rounded-md text-center`}
+        className={`w-64 h-14 border rounded-md text-center ${
+          errors.name ? 'border-[#ec3030]' : 'border-[#143B52]'
+        }`}
         type='text'
         register={register}
         validation={{
@@ -46,7 +48,9 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
           label='instrument'
           placeholder='მუსიკოსის სახელი'
           id='new-musician-instrument'
-          className='w-40 h-14 border border-[#143B52] rounded-md text-center invalid:border-[#ec3030]'
+          className={`w-40 h-14 border rounded-md text-center ${
+            errors.instrument ? 'border-[#ec3030]' : 'border-[#143B52]'
+          }`}
           type='text'
           register={register}
           validation={{
@@ -65,7 +69,9 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
           label='orbitLength'
           placeholder='ორბიტის სიგრძე'
           id='new-musician-instrument'
-          className='w-40 h-14 border border-[#143B52] rounded-md text-center invalid:border-[#ec3030]'
+          className={`w-40 h-14 border rounded-md text-center ${
+            errors.orbitLength ? 'border-[#ec3030]' : 'border-[#143B52]'
+          }`}
           type='text'
           register={register}
           validation={{
@@ -80,7 +86,9 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
           label='color'
           placeholder='ფერი'
           id='new-musician-color'
-          className='w-40 h-14 border border-[#143B52] rounded-md text-center invalid:border-[#ec3030]'
+          className={`w-40 h-14 border rounded-md text-center ${
+            errors.color ? 'border-[#ec3030]' : 'border-[#143B52]'
+          }`}
           type='text'
           register={register}
           validation={{
@@ -101,7 +109,9 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
         label='biography'
         placeholder='მუსიკოსის შესახებ'
         id='new-musician-instrument'
-        className='w-1/2 h-60 p-3 border border-[#143B52] rounded-md invalid:border-[#ec3030]'
+        className={`w-1/2 h-60 p-3 border rounded-md ${
+          errors.biography ? 'border-[#ec3030]' : 'border-[#143B52]'
+        }`}
         register={register}
         validation={{
           required: '*ბიოგრაფია არ უნდა იყოს ცარიელი',

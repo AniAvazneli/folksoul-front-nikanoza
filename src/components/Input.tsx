@@ -1,18 +1,7 @@
 import React from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { InputComponent } from 'types/components';
 
-const Input: React.FC<{
-  label: string;
-  placeholder: string;
-  id: string;
-  className: string;
-  type: string;
-  register: UseFormRegister<any>;
-  validation: object;
-  onChange?: () => void;
-  reference?: React.RefObject<HTMLInputElement>;
-  hidden?: boolean | undefined;
-}> = (props) => {
+const Input: React.FC<InputComponent> = (props) => {
   return (
     <input
       className={props.className}

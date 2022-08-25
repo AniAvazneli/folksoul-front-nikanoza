@@ -1,15 +1,6 @@
-import { UseFormRegister } from 'react-hook-form';
+import { TextareaComponent } from 'types/components';
 
-const Textarea: React.FC<{
-  label: string;
-  placeholder: string;
-  id: string;
-  className: string;
-  register: UseFormRegister<any>;
-  validation: object;
-  onChange?: () => void;
-  hidden?: boolean | undefined;
-}> = (props) => (
+const Textarea: React.FC<TextareaComponent> = (props) => (
   <textarea
     className={props.className}
     placeholder={props.placeholder}

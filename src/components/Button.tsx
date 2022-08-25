@@ -1,13 +1,6 @@
-import { ReactNode } from 'react';
+import { ButtonComponent } from 'types/components';
 
-const Button: React.FC<{
-  type: 'button' | 'submit' | 'reset' | undefined;
-  id: string;
-  form?: string | undefined;
-  onClick?: () => void;
-  className: string;
-  children: ReactNode;
-}> = (props) => {
+const Button: React.FC<ButtonComponent> = (props) => {
   return (
     <button
       type={props.type}
