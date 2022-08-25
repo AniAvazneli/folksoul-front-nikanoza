@@ -1,10 +1,8 @@
 import { Close, YouTube } from 'assets';
-import { Button, InfoHeader, Input } from 'components';
+import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
 const AddMusician: React.FC<{ close: () => void }> = (props) => {
-  const { register, handleSubmit } = useForm<{ image: FileList }>();
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 
@@ -18,7 +16,7 @@ const AddMusician: React.FC<{ close: () => void }> = (props) => {
     setFileSelected(true);
   };
 
-  const onSubmit: SubmitHandler<{ image: FileList }> = async (data) => {
+  const onSubmit = () => {
     const file = imageInput.current?.files
       ? imageInput.current?.files[0]
       : undefined;
@@ -42,39 +40,34 @@ const AddMusician: React.FC<{ close: () => void }> = (props) => {
         alt=''
         className='w-56 h-56 rounded-full mt-20 border-2 border-white shadow-[2px_4px_14px_#000000]'
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          label='image'
-          placeholder='image'
-          id='musician-avatar-input'
-          className=''
-          type='file'
-          register={register}
-          validation={{}}
-          reference={imageInput}
-          onChange={fileChangeHandler}
-          hidden={true}
-        />
-        {!fileSelected && (
-          <Button
-            id='img-upload-btn'
-            onClick={uploadImageHandler}
-            className='w-40 h-10 bg-[#143B52] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
-            type='button'
-          >
-            ატვირთე
-          </Button>
-        )}
-        {fileSelected && (
-          <Button
-            id='musician-img-sent'
-            className='w-40 h-10 bg-[#53C02C] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
-            type='submit'
-          >
-            ატვირთე
-          </Button>
-        )}
-      </form>
+      <input
+        placeholder='image'
+        id='musician-avatar-input'
+        className=''
+        type='file'
+        onChange={fileChangeHandler}
+        hidden={true}
+      />
+      {!fileSelected && (
+        <Button
+          id='img-upload-btn'
+          onClick={uploadImageHandler}
+          className='w-40 h-10 bg-[#143B52] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          type='button'
+        >
+          ატვირთე
+        </Button>
+      )}
+      {fileSelected && (
+        <Button
+          id='musician-img-sent'
+          className='w-40 h-10 bg-[#53C02C] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          type='button'
+          onClick={onSubmit}
+        >
+          ატვირთე
+        </Button>
+      )}
     </div>
   );
 };

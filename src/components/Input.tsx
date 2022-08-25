@@ -24,7 +24,6 @@ const Input: React.FC<{
         ...props.validation,
         onChange: props.onChange,
       })}
-      ref={props.reference}
       hidden={props.hidden}
     />
   );

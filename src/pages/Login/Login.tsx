@@ -44,7 +44,7 @@ const Login = () => {
             },
           }}
         />
-        <div className='mt-1 text-[#ec3030] h-10 ml-5 flex gap-3'>
+        <div className='mt-1 text-[#ec3030] font-ninoMtavruli h-10 ml-5 flex gap-3'>
           {errors.username && errors.username.message}
         </div>
         <Input

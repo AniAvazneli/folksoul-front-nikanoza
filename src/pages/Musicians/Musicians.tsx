@@ -1,6 +1,7 @@
-import { Button, Card, InfoHeader, Menu, Modal } from 'components';
+import { Card, InfoHeader, Menu, Modal } from 'components';
 import { AddMusician, Musician } from 'pages/Musicians/components';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Musicians = () => {
   const [imageCangeModal, setImageChangeModal] = useState<boolean>(false);
@@ -19,7 +20,6 @@ const Musicians = () => {
   const paginationHandler = (index: number) => {};
   const page = 1;
 
-  const addMusicianHandler = () => {};
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>
       <Menu />
@@ -58,14 +58,12 @@ const Musicians = () => {
             );
           })}
         </div>
-        <Button
-          type='button'
-          onClick={addMusicianHandler}
-          id='add-musician-btn'
+        <Link
+          to={'/musicians/new'}
           className='justify-self-center mt-24 font-ninoMtavruli text-[#3A7DA3] text-lg underline'
         >
           ახალი წევრი გვყავს?
-        </Button>
+        </Link>
       </Card>
       {imageCangeModal && (
         <Modal close={closeImageChangeModal}>
