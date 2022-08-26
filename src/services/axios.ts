@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://folksoul-api.nika-nozadze.redberryinternship.ge',
+  baseURL: process.env.API_URL,
   headers: {
     accept: 'application/json',
     'Content-Type': 'application/json',
