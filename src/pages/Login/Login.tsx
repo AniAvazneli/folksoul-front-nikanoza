@@ -14,8 +14,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
-      const response = await loginService.login(data);
-      console.log(response.data);
+      await loginService.login(data);
     } catch (error) {
       console.log(error);
     }
