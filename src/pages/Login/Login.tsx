@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from 'components';
 import { LoginFormValues } from 'types/forms';
 import { Heading } from 'assets';
+import { loginService } from 'services';
 
 const Login = () => {
   const {
@@ -11,7 +12,14 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginFormValues>();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {};
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const response = await loginService.login(data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
