@@ -20,6 +20,7 @@ export type InputComponent = {
   validation: object;
   onChange?: () => void;
   hidden?: boolean | undefined;
+  defaultValue?: string;
 };
 
 export type TextareaComponent = {
@@ -31,4 +32,5 @@ export type TextareaComponent = {
   validation: object;
   onChange?: () => void;
   hidden?: boolean | undefined;
+  defaultValue?: string;
 };

@@ -2,7 +2,7 @@ import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
 
-const AddMusician: React.FC<{ close: () => void }> = (props) => {
+const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 
@@ -73,4 +73,4 @@ const AddMusician: React.FC<{ close: () => void }> = (props) => {
   );
 };
 
-export default AddMusician;
+export default AddMusicianImg;

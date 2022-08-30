@@ -1,6 +1,7 @@
 import {
   About,
   Dashboard,
+  EditMusician,
   Home,
   Links,
   Login,
@@ -18,6 +19,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/musicians' element={<Musicians />} />
         <Route path='/musicians/new' element={<NewMusician />} />
+        <Route path='/musicians/edit/:id' element={<EditMusician />} />
         <Route path='/links' element={<Links />} />
         <Route path='/about' element={<About />} />
       </Routes>

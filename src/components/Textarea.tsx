@@ -11,6 +11,7 @@ const Textarea: React.FC<TextareaComponent> = (props) => (
       onChange: props.onChange,
     })}
     hidden={props.hidden}
+    defaultValue={props.defaultValue || ''}
   ></textarea>
 );
 

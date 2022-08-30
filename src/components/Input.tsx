@@ -14,6 +14,7 @@ const Input: React.FC<InputComponent> = (props) => {
         onChange: props.onChange,
       })}
       hidden={props.hidden}
+      defaultValue={props.defaultValue || ''}
     />
   );
 };

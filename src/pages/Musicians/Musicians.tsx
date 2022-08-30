@@ -1,10 +1,17 @@
 import { Card, InfoHeader, Menu, Modal } from 'components';
-import { AddMusician, Musician } from 'pages/Musicians/components';
+import {
+  AddMusicianImg,
+  Musician,
+  MusicianDetails,
+} from 'pages/Musicians/components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { MusicianFormValues } from 'types/forms';
 
 const Musicians = () => {
   const [imageCangeModal, setImageChangeModal] = useState<boolean>(false);
+  const [detailModal, setDetailModal] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   const closeImageChangeModal = () => {
     setImageChangeModal(false);
@@ -14,11 +21,36 @@ const Musicians = () => {
     setImageChangeModal(true);
   };
 
+  const closeDetailModal = () => {
+    setDetailModal(false);
+  };
+
+  const openDetailModal = () => {
+    setDetailModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal(true);
+  };
+
+  const openDeleteModal = () => {
+    setDeleteModal(true);
+  };
+
   const array = [1, 2, 3, 4, 5, 6];
   const itemsPerPage = 3;
 
   const paginationHandler = (index: number) => {};
   const page = 1;
+
+  const musicianObj: MusicianFormValues = {
+    name: 'ნიკა',
+    instrument: 'ფლეიტა',
+    orbitLength: '500',
+    color: '#F2F2F2',
+    biography:
+      'დავიბადე დავიბადე დავიბადე დავიბადე დავიბადე დავიბადე დავიბადე დავიბადე დავიბადე',
+  };
 
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>
@@ -28,15 +60,21 @@ const Musicians = () => {
         <div className='flex w-full gap-x-20 mt-24 h-1/3 justify-center'>
           <Musician
             className=' w-1/6 h-full'
-            openModal={openImageChangeModal}
+            openImgModal={openImageChangeModal}
+            openDetailModal={openDetailModal}
+            openDeleteModal={openDeleteModal}
           ></Musician>
           <Musician
             className=' w-1/6 h-full'
-            openModal={openImageChangeModal}
+            openImgModal={openImageChangeModal}
+            openDetailModal={openDetailModal}
+            openDeleteModal={openDeleteModal}
           ></Musician>
           <Musician
             className=' w-1/6 h-full'
-            openModal={openImageChangeModal}
+            openImgModal={openImageChangeModal}
+            openDetailModal={openDetailModal}
+            openDeleteModal={openDeleteModal}
           ></Musician>
         </div>
         <div className='w-full flex justify-center gap-x-6 mt-32'>
@@ -67,7 +105,17 @@ const Musicians = () => {
       </Card>
       {imageCangeModal && (
         <Modal close={closeImageChangeModal}>
-          <AddMusician close={closeImageChangeModal} />
+          <AddMusicianImg close={closeImageChangeModal} />
+        </Modal>
+      )}
+      {detailModal && (
+        <Modal close={closeDetailModal}>
+          <MusicianDetails close={closeDetailModal} musician={musicianObj} />
+        </Modal>
+      )}
+      {deleteModal && (
+        <Modal close={closeDeleteModal}>
+          <MusicianDetails close={closeDetailModal} musician={musicianObj} />
         </Modal>
       )}
     </div>

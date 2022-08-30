@@ -1,10 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { MusicianFormValues } from 'types/forms';
 import Button from './Button';
 import Input from './Input';
 import Textarea from './Textarea';
 
-const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
+const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
   const {
     register,
     handleSubmit,
@@ -39,6 +40,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
             message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
+        defaultValue={props.musician?.name || ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.name && errors.name.message}
@@ -64,6 +66,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
               message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
             },
           }}
+          defaultValue={props.musician?.instrument || ''}
         />
         <Input
           label='orbitLength'
@@ -81,6 +84,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
               message: '*ორბიტის სიგრძე უნდა იყოს დადებითი რიცხვი',
             },
           }}
+          defaultValue={props.musician?.orbitLength || ''}
         />
         <Input
           label='color'
@@ -98,6 +102,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
               message: '*ფერი უნდა იყოს HEX ფორმატის',
             },
           }}
+          defaultValue={props.musician?.color || ''}
         />
       </div>
       <div className='p-2 flex flex-col text-[#ec3030] font-ninoMtavruli'>
@@ -120,6 +125,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
             message: '*ბიოგრაფია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
+        defaultValue={props.musician?.biography || ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.biography && errors.biography.message}
@@ -129,8 +135,16 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = () => {
         type='submit'
         className='w-52 h-12 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52]'
       >
-        დაამატე წევრი
+        {props.musician ? 'ცვლილებების შენახვა' : 'დაამატე წევრი'}
       </Button>
+      <Link
+        to={'/musicians'}
+        id='back-musician-btn'
+        type='button'
+        className='mt-5 font-ninoMtavruli font-bold text-lg text-[#3A7DA3] underline'
+      >
+        გადი უკან
+      </Link>
     </form>
   );
 };
