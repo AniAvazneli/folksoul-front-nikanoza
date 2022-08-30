@@ -2,6 +2,7 @@ import { Card, InfoHeader, Menu, Modal } from 'components';
 import {
   AddMusicianImg,
   Musician,
+  MusicianDelete,
   MusicianDetails,
 } from 'pages/Musicians/components';
 import { useState } from 'react';
@@ -30,7 +31,7 @@ const Musicians = () => {
   };
 
   const closeDeleteModal = () => {
-    setDeleteModal(true);
+    setDeleteModal(false);
   };
 
   const openDeleteModal = () => {
@@ -115,7 +116,7 @@ const Musicians = () => {
       )}
       {deleteModal && (
         <Modal close={closeDeleteModal}>
-          <MusicianDetails close={closeDetailModal} musician={musicianObj} />
+          <MusicianDelete close={closeDeleteModal} musician={musicianObj} />
         </Modal>
       )}
     </div>
