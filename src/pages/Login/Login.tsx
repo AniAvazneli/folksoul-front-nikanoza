@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from 'components';
 import { LoginFormValues } from 'types/forms';
 import { Heading } from 'assets';
+import { loginService } from 'services';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const {
@@ -11,7 +13,17 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginFormValues>();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {};
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const response = await loginService.login(data);
+      console.log(response.data);
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -27,7 +39,7 @@ const Login = () => {
         <Input
           type='text'
           className='w-full h-14 bg-[#C4B6B2] mt-7 outline-none pl-5 placeholder-[#501C1C]'
-          label='username'
+          label='name'
           id='username'
           placeholder='მეტსახელი'
           register={register}
@@ -44,8 +56,8 @@ const Login = () => {
             },
           }}
         />
-        <div className='mt-1 text-[#ec3030] h-10 ml-5 flex gap-3'>
-          {errors.username && errors.username.message}
+        <div className='mt-1 text-[#ec3030] font-ninoMtavruli h-10 ml-5 flex gap-3'>
+          {errors.name && errors.name.message}
         </div>
         <Input
           type='password'

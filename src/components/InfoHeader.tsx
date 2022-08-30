@@ -1,7 +1,16 @@
 import { ReactNode } from 'react';
 
-const InfoHeader: React.FC<{ children: ReactNode }> = (props) => (
-  <div className='w-4/5 flex justify-center'></div>
+const InfoHeader: React.FC<{ children: ReactNode; className?: string }> = (
+  props
+) => (
+  <div
+    className={
+      'w-4/5 h-14 flex justify-center items-center font-ninoMtavruli text-lg border-b border-black ' +
+      props.className
+    }
+  >
+    {props.children}
+  </div>
 );
 
 export default InfoHeader;

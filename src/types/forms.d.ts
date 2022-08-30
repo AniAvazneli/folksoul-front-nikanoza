@@ -1,4 +1,12 @@
 export type LoginFormValues = {
-  username: string;
+  name: string;
   password: string;
+};
+
+export type MusicianFormValues = {
+  name: string;
+  instrument: string;
+  orbitLength: string;
+  color: string;
+  biography: string;
 };
