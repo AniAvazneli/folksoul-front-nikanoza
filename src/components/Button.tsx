@@ -1,4 +1,4 @@
-import { ButtonComponent } from 'types/components';
+import { ButtonComponent } from 'types';
 
 const Button: React.FC<ButtonComponent> = (props) => {
   return (

@@ -1,16 +1,16 @@
 import { Close } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { MusicianFormValues } from 'types';
+import { LinkFormValues } from 'types/forms';
 
-const MusicianDelete: React.FC<{
+const DeleteLink: React.FC<{
   close: () => void;
-  musician: MusicianFormValues;
+  link: LinkFormValues;
 }> = (props) => {
   const closeModalHandler = () => {
     props.close();
   };
 
-  const musicianDeleteHandler = () => {};
+  const linkDeleteHandler = () => {};
 
   return (
     <div className='flex flex-col items-center p-4'>
@@ -22,13 +22,13 @@ const MusicianDelete: React.FC<{
       >
         <img src={Close} alt='' />
       </Button>
-      <InfoHeader>გსურთ წევრის წაშლა?</InfoHeader>
+      <InfoHeader>გსურთ ბმულის წაშლა?</InfoHeader>
       <div className='flex gap-10 mt-24'>
         <Button
           className='w-40 h-10 bg-[#EB5757] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
-          id='musician-del-btn'
+          id='link-del-btn'
           type='button'
-          onClick={musicianDeleteHandler}
+          onClick={linkDeleteHandler}
         >
           წაშლა
         </Button>
@@ -37,4 +37,4 @@ const MusicianDelete: React.FC<{
   );
 };
 
-export default MusicianDelete;
+export default DeleteLink;

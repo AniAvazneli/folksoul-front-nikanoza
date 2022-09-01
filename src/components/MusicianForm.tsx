@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { MusicianFormValues } from 'types/forms';
+import { MusicianFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 import Textarea from './Textarea';

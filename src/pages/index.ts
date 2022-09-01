@@ -6,3 +6,4 @@ export { default as Links } from './Links';
 export { default as About } from './About';
 export { default as NewMusician } from './NewMusician';
 export { default as EditMusician } from './EditMusician';
+export { default as NewLink } from './NewLink';

@@ -1,4 +1,4 @@
-import { TextareaComponent } from 'types/components';
+import { TextareaComponent } from 'types';
 
 const Textarea: React.FC<TextareaComponent> = (props) => (
   <textarea

@@ -6,3 +6,4 @@ export { default as InfoHeader } from './InfoHeader';
 export { default as Modal } from './Modal';
 export { default as MusicianForm } from './MusicianForm';
 export { default as Textarea } from './Textarea';
+export { default as LinkForm } from './LinkForm';

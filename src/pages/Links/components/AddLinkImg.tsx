@@ -1,8 +1,11 @@
 import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
+import { LinkFormValues } from 'types/forms';
 
-const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
+const AddLinkImg: React.FC<{ close: () => void; link: LinkFormValues }> = (
+  props
+) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 
@@ -28,12 +31,9 @@ const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
       >
         <img src={Close} alt='' />
       </Button>
-      <InfoHeader>შეცვალე ჯგუფის წევრის ავატარი</InfoHeader>
-      <img
-        src={YouTube}
-        alt=''
-        className='w-56 h-56 rounded-full mt-20 border-2 border-white shadow-[2px_4px_14px_#000000]'
-      />
+      <InfoHeader>შეცვალე სოციალური ბმულის ხატულა</InfoHeader>
+      <span className='text-lg font-ninoMtavruli mt-16'>{props.link.name}</span>
+      <img src={YouTube} alt='' className='w-56 mt-16' />
       <input
         placeholder='image'
         id='musician-avatar-input'
@@ -47,7 +47,7 @@ const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
         <Button
           id='img-upload-btn'
           onClick={uploadImageHandler}
-          className='w-40 h-10 bg-[#143B52] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#143B52] rounded-md mt-16 font-ninoMtavruli text-white text-lg'
           type='button'
         >
           ატვირთე
@@ -60,11 +60,11 @@ const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
           type='button'
           onClick={onSubmit}
         >
-          ატვირთე
+          შეინახე
         </Button>
       )}
     </div>
   );
 };
 
-export default AddMusicianImg;
+export default AddLinkImg;

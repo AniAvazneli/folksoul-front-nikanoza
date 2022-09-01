@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Button, Input } from 'components';
-import { LoginFormValues } from 'types/forms';
+import { LoginFormValues } from 'types';
 import { Heading } from 'assets';
 import { loginService } from 'services';
 import { useNavigate } from 'react-router-dom';
