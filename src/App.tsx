@@ -6,6 +6,7 @@ import {
   Links,
   Login,
   Musicians,
+  NewLink,
   NewMusician,
 } from 'pages';
 import { Route, Routes } from 'react-router-dom';
@@ -21,6 +22,7 @@ function App() {
         <Route path='/musicians/new' element={<NewMusician />} />
         <Route path='/musicians/edit/:id' element={<EditMusician />} />
         <Route path='/links' element={<Links />} />
+        <Route path='/links/new' element={<NewLink />} />
         <Route path='/about' element={<About />} />
       </Routes>
     </div>
