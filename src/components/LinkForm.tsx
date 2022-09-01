@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { LinkFormValues } from 'types/forms';
+import { LinkFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 

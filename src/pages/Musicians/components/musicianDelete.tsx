@@ -1,6 +1,6 @@
 import { Close } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { MusicianFormValues } from 'types/forms';
+import { MusicianFormValues } from 'types';
 
 const MusicianDelete: React.FC<{
   close: () => void;

@@ -1,6 +1,6 @@
 import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { MusicianFormValues } from 'types/forms';
+import { MusicianFormValues } from 'types';
 
 const MusicianDetails: React.FC<{
   close: () => void;

@@ -7,7 +7,7 @@ import {
 } from 'pages/Musicians/components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MusicianFormValues } from 'types/forms';
+import { MusicianFormValues } from 'types';
 
 const Musicians = () => {
   const [imageCangeModal, setImageChangeModal] = useState<boolean>(false);

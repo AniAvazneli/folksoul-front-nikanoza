@@ -1,6 +1,6 @@
 import { Card, InfoHeader, Menu } from 'components';
 import LinkForm from 'components/LinkForm';
-import { LinkFormValues } from 'types/forms';
+import { LinkFormValues } from 'types';
 
 const EditLink = () => {
   const link: LinkFormValues = {
