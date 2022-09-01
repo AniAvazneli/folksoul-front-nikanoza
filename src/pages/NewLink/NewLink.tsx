@@ -1,5 +1,4 @@
-import { Card, InfoHeader, Menu } from 'components';
-import LinkForm from 'components/LinkForm';
+import { Card, InfoHeader, LinkForm, Menu } from 'components';
 
 const NewLink = () => {
   return (

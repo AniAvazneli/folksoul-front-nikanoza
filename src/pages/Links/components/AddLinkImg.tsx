@@ -19,13 +19,7 @@ const AddLinkImg: React.FC<{ close: () => void; link: LinkFormValues }> = (
     setFileSelected(true);
   };
 
-  const onSubmit = async () => {
-    const file = imageInput.current?.files
-      ? imageInput.current?.files[0]
-      : undefined;
-
-    console.log(file);
-  };
+  const onSubmit = async () => {};
 
   return (
     <div className='flex flex-col items-center p-4'>
