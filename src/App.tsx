@@ -9,6 +9,7 @@ import {
   NewLink,
   NewMusician,
 } from 'pages';
+import EditLink from 'pages/EditLink';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/musicians/edit/:id' element={<EditMusician />} />
         <Route path='/links' element={<Links />} />
         <Route path='/links/new' element={<NewLink />} />
+        <Route path='/links/edit' element={<EditLink />} />
         <Route path='/about' element={<About />} />
       </Routes>
     </div>
