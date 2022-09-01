@@ -10,3 +10,8 @@ export type MusicianFormValues = {
   color: string;
   biography: string;
 };
+
+export type LinkFormValues = {
+  name: string;
+  link: string;
+};
