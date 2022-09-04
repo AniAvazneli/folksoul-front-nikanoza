@@ -1,6 +1,7 @@
 import {
   About,
   Dashboard,
+  EditBand,
   EditMusician,
   Home,
   Links,
@@ -26,6 +27,7 @@ function App() {
         <Route path='/links/new' element={<NewLink />} />
         <Route path='/links/edit/:id' element={<EditLink />} />
         <Route path='/about' element={<About />} />
+        <Route path='/about/edit' element={<EditBand />} />
       </Routes>
     </div>
   );
