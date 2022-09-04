@@ -114,14 +114,14 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
         label='biography'
         placeholder='მუსიკოსის შესახებ'
         id='new-musician-instrument'
-        className={`w-1/2 h-60 p-3 border rounded-md ${
+        className={`w-1/2 h-60 p-3 resize-none border rounded-md ${
           errors.biography ? 'border-[#ec3030]' : 'border-[#143B52]'
         }`}
         register={register}
         validation={{
           required: '*ბიოგრაფია არ უნდა იყოს ცარიელი',
           pattern: {
-            value: /^[ა-ჰ]{1,}$/,
+            value: /^[ა–ჰ0-9\W]{2,}$/,
             message: '*ბიოგრაფია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}

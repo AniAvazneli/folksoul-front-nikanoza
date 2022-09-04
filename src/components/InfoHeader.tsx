@@ -5,7 +5,7 @@ const InfoHeader: React.FC<{ children: ReactNode; className?: string }> = (
 ) => (
   <div
     className={
-      'w-4/5 h-14 flex justify-center items-center font-ninoMtavruli text-lg border-b border-black ' +
+      'w-3/4 h-14 flex justify-center items-center font-ninoMtavruli text-lg border-b border-black ' +
       props.className
     }
   >
