@@ -121,7 +121,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
         validation={{
           required: '*ბიოგრაფია არ უნდა იყოს ცარიელი',
           pattern: {
-            value: /^[ა-ჰ]{1,}$/,
+            value: /^[ა–ჰ0-9\W]{2,}$/,
             message: '*ბიოგრაფია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}

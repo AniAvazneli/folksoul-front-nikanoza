@@ -3,7 +3,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const EditBand = () => {
-  const { register, handleSubmit } = useForm<{ about: string }>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ about: string }>();
 
   const onSubmit: SubmitHandler<{ about: string }> = async (data) => {};
   return (
@@ -25,14 +29,27 @@ const EditBand = () => {
               id='abount-band-textarea'
               className='w-full h-full bg-transparent text-justify font-arial text-base pr-14 resize-none border-none outline-none'
               register={register}
-              validation={{}}
+              validation={{
+                required: '*ინფორმაცია არ უნდა იყოს ცარიელი',
+                pattern: {
+                  value: /^[ა–ჰ0-9\W]{100,}$/,
+                  message: '*ინფორმაცია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
+                },
+                minLength: {
+                  value: 100,
+                  message:
+                    '*ბენდის ინფორმაცია უნდა შედგებოდეს მინიმუმ 100 სიმბოლოსგან',
+                },
+              }}
             />
+          </div>
+          <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
+            {errors.about && errors.about.message}
           </div>
           <Button
             id='bend-info-sent'
-            className='w-40 h-10 bg-[#53C02C] rounded-md mt-auto mb-auto font-ninoMtavruli text-white text-lg'
-            type='button'
-            onClick={() => onSubmit}
+            className='w-40 h-10 bg-[#53C02C] rounded-md mb-auto font-ninoMtavruli text-white text-lg'
+            type='submit'
           >
             ატვირთე
           </Button>
