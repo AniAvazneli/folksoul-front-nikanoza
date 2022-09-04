@@ -41,7 +41,7 @@ const Home = () => {
             id='planet'
             className='absolute w-[600px] h-[600px] border-2 border-dashed border-[#F2C94C] rounded-full'
           >
-            <Planet className='' />
+            <Planet className='animate-[orbit_4s_linear_infinite]' />
           </div>
         </div>
         <div className='w-5/12 h-5/6 mt-48'>
