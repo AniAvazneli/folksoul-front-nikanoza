@@ -4,7 +4,7 @@ const Planet: React.FC<{ className: string }> = (props) => {
   return (
     <div
       className={
-        `w-16 h-16 rounded-full border-2 border-[#F2C94C] bg-red-400 flex justify-center items-center relative top-1/2 left-1/2 -ml-8 -mt-8 ` +
+        `w-16 h-16 rounded-full border-2 border-[#F2C94C] bg-red-400 flex justify-center items-center relative top-1/2 -ml-8 -mt-8 cursor-pointer ` +
         props.className
       }
     >

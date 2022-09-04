@@ -39,9 +39,9 @@ const Home = () => {
           </div>
           <div
             id='planet'
-            className='absolute w-[600px] h-[600px] border-2 border-dashed border-[#F2C94C] rounded-full'
+            className='absolute w-[400px] h-[400px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_4s_linear_infinite]'
           >
-            <Planet className='animate-[orbit_4s_linear_infinite]' />
+            <Planet className='animate-[orbitMinus_4s_linear_infinite]' />
           </div>
         </div>
         <div className='w-5/12 h-5/6 mt-48'>
