@@ -1,6 +1,8 @@
 import { Twitter } from 'assets';
 
-const Planet: React.FC<{ className: string }> = (props) => {
+const Planet: React.FC<{ className: string; stopAnimation?: () => void }> = (
+  props
+) => {
   return (
     <div
       className={
