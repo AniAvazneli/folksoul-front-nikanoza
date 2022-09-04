@@ -1,5 +1,6 @@
-import { Fb, Logo, Twitter, YouTube } from 'assets';
+import { Fb, Logo, NoteAnimation, Sun, Twitter, YouTube } from 'assets';
 import { Link } from 'react-router-dom';
+import { Planet } from 'pages/Home/components';
 
 const Home = () => {
   return (
@@ -21,7 +22,28 @@ const Home = () => {
         id='animation-and-info'
         className='h-5/6 w-full pt-11 flex justify-between items-center'
       >
-        <div id='solar-system'></div>
+        <div
+          id='solar-system'
+          className=' w-1/2 h-full mt-10 flex justify-center items-center'
+        >
+          <div
+            id='sun-box'
+            className='rounded-full relative animate-[pulsation_0.3s_infinite] z-10'
+          >
+            <img src={Sun} alt='' />
+            <img
+              src={NoteAnimation}
+              alt=''
+              className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[zoom_0.5s_infinite]'
+            />
+          </div>
+          <div
+            id='planet'
+            className='absolute w-[600px] h-[600px] border-2 border-dashed border-[#F2C94C] rounded-full'
+          >
+            <Planet className='' />
+          </div>
+        </div>
         <div className='w-5/12 h-5/6 mt-48'>
           <div id='info' className='w-full bg-[#FBD560] h-full rounded-[20px]'>
             <div id='info-top' className='flex justify-between'>
