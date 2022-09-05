@@ -1,8 +1,19 @@
 import { Fb, Logo, NoteAnimation, Sun, Twitter, YouTube } from 'assets';
 import { Link } from 'react-router-dom';
 import { Planet } from 'pages/Home/components';
+import { useState } from 'react';
 
 const Home = () => {
+  const [animationStage, setAnimationStage] = useState<boolean>(true);
+
+  const stopAnimation = () => {
+    setAnimationStage(false);
+  };
+
+  const continueAnimation = () => {
+    setAnimationStage(true);
+  };
+
   return (
     <div
       id='main-page'
@@ -28,20 +39,45 @@ const Home = () => {
         >
           <div
             id='sun-box'
-            className='rounded-full relative animate-[pulsation_0.3s_infinite] z-10'
+            className={`rounded-full relative z-[1000] animate-[pulsation_0.3s_infinite] cursor-pointer ${
+              !animationStage ? 'pause' : ''
+            } `}
+            onClick={continueAnimation}
           >
             <img src={Sun} alt='' />
             <img
               src={NoteAnimation}
               alt=''
-              className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[zoom_0.5s_infinite]'
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[zoom_0.5s_infinite] ${
+                !animationStage ? 'pause' : ''
+              }`}
+            />
+          </div>
+          <div
+            id='mars'
+            className={`absolute w-[400px] h-[400px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_6s_linear_infinite] z-[477] ${
+              !animationStage ? 'pause' : ''
+            }`}
+          >
+            <Planet
+              className={`animate-[orbitMinus_6s_linear_infinite] ${
+                !animationStage ? 'pause' : ''
+              }`}
+              stopAnimation={stopAnimation}
             />
           </div>
           <div
             id='planet'
-            className='absolute w-[400px] h-[400px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_6s_linear_infinite]'
+            className={`absolute w-[600px] h-[600px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_8s_linear_infinite] z-[227] ${
+              !animationStage ? 'pause' : ''
+            }`}
           >
-            <Planet className='animate-[orbitMinus_6s_linear_infinite]' />
+            <Planet
+              className={`animate-[orbitMinus_8s_linear_infinite] ${
+                !animationStage ? 'pause' : ''
+              }`}
+              stopAnimation={stopAnimation}
+            />
           </div>
         </div>
         <div className='w-5/12 h-5/6 mt-48'>
