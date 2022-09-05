@@ -5,6 +5,30 @@ module.exports = {
   theme: {
     extend: {
       '15/24': '62.5%',
+      keyframes: {
+        pulsation: {
+          '100%': { boxShadow: '0 0 10px #FC7373' },
+        },
+        zoom: {
+          '100%': {
+            scale: '1.3',
+          },
+        },
+        orbit: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        orbitMinus: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(-360deg)' },
+        },
+      },
+      animation: {
+        pulsation: 'pulsation 0.3s infinite',
+        zoom: 'zoom 0.5s infinite',
+        orbit: 'orbit 4s linear infinite',
+        orbitMinus: 'orbitMinus 4s linear infinite',
+      },
     },
     fontFamily: {
       ninoMtavruli: 'BPG Nino Mtavruli, sans-serif',

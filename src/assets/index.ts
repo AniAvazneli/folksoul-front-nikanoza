@@ -12,3 +12,5 @@ export { default as TvFeet } from './tvFeet.png';
 export { default as Camera } from './camera.png';
 export { default as Close } from './close.png';
 export { default as Edit } from './edit.png';
+export { default as Sun } from './sun.png';
+export { default as NoteAnimation } from './noteAnimation.png';
