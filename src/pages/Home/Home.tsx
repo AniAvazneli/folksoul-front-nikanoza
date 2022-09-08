@@ -2,9 +2,12 @@ import { Fb, Logo, NoteAnimation, Sun, Twitter, YouTube } from 'assets';
 import { Link } from 'react-router-dom';
 import { Planet } from 'pages/Home/components';
 import { useState } from 'react';
+import { useAppSelector } from 'store';
 
 const Home = () => {
   const [animationStage, setAnimationStage] = useState<boolean>(true);
+
+  const band = useAppSelector((state) => state.band.band);
 
   const stopAnimation = () => {
     setAnimationStage(false);
@@ -101,7 +104,9 @@ const Home = () => {
             <p
               id='info-text'
               className='font-arial pl-16 mr-10 pr-10 mt-9 text-lg text-justify overflow-y-auto max-h-96'
-            ></p>
+            >
+              {band.description}
+            </p>
           </div>
           <div className='h-9 mt-6 flex justify-center gap-x-12'>
             <img src={Fb} alt='' />

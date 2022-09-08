@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from 'components';
 import { LoginFormValues } from 'types';
 import { Heading } from 'assets';
-import { loginService } from 'services';
+import { login } from 'services';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
-      const response = await loginService.login(data);
+      const response = await login(data);
       console.log(response.data);
       navigate('/dashboard');
     } catch (error) {
