@@ -32,7 +32,7 @@ const AddMusicianImg: React.FC<{
       >
         <img src={Close} alt='' />
       </Button>
-      <InfoHeader>შეცვალე ჯგუფის წევრის ავატარი</InfoHeader>
+      <InfoHeader>შეცვალე {props.musician.name}ს ავატარი</InfoHeader>
       <img
         src={YouTube}
         alt=''

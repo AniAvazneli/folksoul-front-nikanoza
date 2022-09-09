@@ -24,3 +24,11 @@ export const updateMember = (data: {
     },
   });
 };
+
+export const deleteMember = (data: { id: number; token: string }) => {
+  return axios.delete('/singers/delete/' + data.id, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};

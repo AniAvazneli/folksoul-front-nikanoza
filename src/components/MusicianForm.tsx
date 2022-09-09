@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from 'react-use-cookie';
 import { addNewMember, updateMember } from 'services';
 import { useAppSelector } from 'store';
@@ -19,13 +19,24 @@ const MusicianForm = () => {
   const members = useAppSelector((state) => state.members.members);
   const token = getCookie('token');
   const member = members.find((singer) => (id ? singer.id === +id : null));
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<MusicianFormValues> = async (data) => {
     const refactorData = { ...data, orbitLength: +data.orbitLength };
     if (member && token) {
-      await updateMember({ member: refactorData, id: id ? +id : 0, token });
+      try {
+        await updateMember({
+          member: refactorData,
+          id: id ? +id : 0,
+          token,
+        });
+        navigate('/musicians');
+      } catch (error) {}
     } else {
-      await addNewMember({ member: refactorData, token });
+      try {
+        await addNewMember({ member: refactorData, token });
+        navigate('/musicians');
+      } catch (error) {}
     }
   };
   return (

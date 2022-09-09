@@ -49,7 +49,6 @@ const Musicians = () => {
   const paginationHandler = (index: number) => {
     setMembersPage(index / itemsPerPage);
   };
-  const page = 1;
 
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>
@@ -93,7 +92,7 @@ const Musicians = () => {
             return index % itemsPerPage === 0 ? (
               <div
                 className={`w-5 h-5 rounded-full cursor-pointer ${
-                  index / itemsPerPage === page - 1
+                  index / itemsPerPage === membersPage
                     ? 'bg-[#444444]'
                     : 'bg-[#c4c4c4]'
                 }`}
