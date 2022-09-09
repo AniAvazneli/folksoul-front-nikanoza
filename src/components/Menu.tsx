@@ -2,7 +2,6 @@ import { Door, Home, Member, Note, YouTube } from 'assets';
 // import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { setCookie } from 'react-use-cookie';
-import { authActions, useAppDispatch } from 'store';
 import { getCookie } from 'react-use-cookie';
 import Button from './Button';
 import { useEffect } from 'react';
@@ -10,7 +9,6 @@ import { useEffect } from 'react';
 const Menu = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const token = getCookie('token');
 
   useEffect(() => {
@@ -21,7 +19,6 @@ const Menu = () => {
 
   const onLogout = () => {
     setCookie('token', '');
-    dispatch(authActions.onLogout());
     navigate('/');
   };
 

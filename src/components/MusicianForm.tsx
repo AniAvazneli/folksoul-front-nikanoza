@@ -1,19 +1,34 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { addNewMember } from 'services';
+import { useAppSelector } from 'store';
 import { MusicianFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 import Textarea from './Textarea';
 
-const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
+const MusicianForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<MusicianFormValues>();
 
+  const { id } = useParams();
+  const members = useAppSelector((state) => state.members.members);
+  const token = getCookie('token');
+  const member = members.find((singer) => (id ? singer.id === +id : null));
+
   const onSubmit: SubmitHandler<MusicianFormValues> = async (data) => {
-    console.log(data);
+    const refactorData = { ...data, orbitLength: +data.orbitLength };
+    if (member && token) {
+      console.log('edit');
+    } else {
+      console.log(token);
+      const response = await addNewMember({ member: refactorData, token });
+      console.log(response);
+    }
   };
   return (
     <form
@@ -40,7 +55,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
             message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
-        defaultValue={props.musician?.name || ''}
+        defaultValue={member ? member?.name : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.name && errors.name.message}
@@ -66,7 +81,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
               message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
             },
           }}
-          defaultValue={props.musician?.instrument || ''}
+          defaultValue={member ? member.instrument : ''}
         />
         <Input
           label='orbitLength'
@@ -90,7 +105,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
                 +value < 800 || 'ორბიტის სიგრძე უნდა იყოს 800ზე ნაკლები',
             },
           }}
-          defaultValue={props.musician?.orbitLength || ''}
+          defaultValue={member ? member.orbitLength.toString() : ''}
         />
         <Input
           label='color'
@@ -108,7 +123,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
               message: '*ფერი უნდა იყოს HEX ფორმატის',
             },
           }}
-          defaultValue={props.musician?.color || ''}
+          defaultValue={member ? member.color : ''}
         />
       </div>
       <div className='p-2 flex flex-col text-[#ec3030] font-ninoMtavruli'>
@@ -131,7 +146,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
             message: '*ბიოგრაფია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
-        defaultValue={props.musician?.biography || ''}
+        defaultValue={member ? member.biography : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.biography && errors.biography.message}
@@ -141,7 +156,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
         type='submit'
         className='w-52 h-12 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52]'
       >
-        {props.musician ? 'ცვლილებების შენახვა' : 'დაამატე წევრი'}
+        {member ? 'ცვლილებების შენახვა' : 'დაამატე წევრი'}
       </Button>
       <Link
         to={'/musicians'}

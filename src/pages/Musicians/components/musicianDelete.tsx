@@ -1,10 +1,10 @@
 import { Close } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { MusicianFormValues } from 'types';
+import { member } from 'types';
 
 const MusicianDelete: React.FC<{
   close: () => void;
-  musician: MusicianFormValues;
+  musician: member;
 }> = (props) => {
   const closeModalHandler = () => {
     props.close();

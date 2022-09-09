@@ -1,8 +1,12 @@
 import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
+import { member } from 'types';
 
-const AddMusicianImg: React.FC<{ close: () => void }> = (props) => {
+const AddMusicianImg: React.FC<{
+  close: () => void;
+  musician: member;
+}> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 

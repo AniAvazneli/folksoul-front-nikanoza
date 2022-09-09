@@ -4,6 +4,7 @@ import { Planet } from 'pages/Home/components';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from 'store';
 import { member } from 'types';
+import { getCookie } from 'react-use-cookie';
 
 const Home = () => {
   const [animationStage, setAnimationStage] = useState<boolean>(true);
@@ -12,7 +13,7 @@ const Home = () => {
 
   const band = useAppSelector((state) => state.band.band);
   const members = useAppSelector((state) => state.members.members);
-  const token = useAppSelector((state) => state.auth.token);
+  const token = getCookie('token');
 
   useEffect(() => {
     setTextInfo(band.description);
@@ -69,7 +70,7 @@ const Home = () => {
               }`}
             />
           </div>
-          {members.length &&
+          {members.length > 0 &&
             members.map((member, index) => (
               <div
                 id={'member-' + member.id}
@@ -81,7 +82,8 @@ const Home = () => {
                   width: member.orbitLength + 'px',
                   height: member.orbitLength + 'px',
                   zIndex: 800 - member.orbitLength,
-                  animationDelay: 100 / member.orbitLength + 's',
+                  animationDelay:
+                    100 / Math.floor(Math.random() * 600) - 200 + 's',
                   animationDuration: 3000 / member.orbitLength + 's',
                 }}
               >
