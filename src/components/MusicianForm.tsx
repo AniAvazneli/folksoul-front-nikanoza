@@ -22,7 +22,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
     >
       <Input
         label='name'
-        placeholder='მუზიკანტის სახელი'
+        placeholder='მუსიკოსის სახელი'
         id='new-musician-name'
         className={`w-64 h-14 border rounded-md text-center ${
           errors.name ? 'border-[#ec3030]' : 'border-[#143B52]'
@@ -48,7 +48,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
       <div id='middle-form' className='flex gap-x-8'>
         <Input
           label='instrument'
-          placeholder='მუსიკოსის სახელი'
+          placeholder='ინსტრუმენტი'
           id='new-musician-instrument'
           className={`w-40 h-14 border rounded-md text-center ${
             errors.instrument ? 'border-[#ec3030]' : 'border-[#143B52]'
@@ -82,6 +82,12 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
             pattern: {
               value: /^[0-9]{1,}$/,
               message: '*ორბიტის სიგრძე უნდა იყოს დადებითი რიცხვი',
+            },
+            validate: {
+              min: (value: string) =>
+                +value > 200 || 'ორბიტის სიგრძე უნდა იყოს 200ზე მეტი',
+              max: (value: string) =>
+                +value < 800 || 'ორბიტის სიგრძე უნდა იყოს 800ზე ნაკლები',
             },
           }}
           defaultValue={props.musician?.orbitLength || ''}

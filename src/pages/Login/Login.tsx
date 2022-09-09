@@ -5,6 +5,7 @@ import { LoginFormValues } from 'types';
 import { Heading } from 'assets';
 import { login } from 'services';
 import { useNavigate } from 'react-router-dom';
+import { setCookie } from 'react-use-cookie';
 
 const Login = () => {
   const {
@@ -18,7 +19,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       const response = await login(data);
-      console.log(response.data);
+      setCookie('token', response.data.token, { days: 30 });
       navigate('/dashboard');
     } catch (error) {
       console.log(error);

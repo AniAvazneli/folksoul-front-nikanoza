@@ -1,7 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { bandSlice } from './slices';
+import { authReducer, bandReducer, membersReducer } from './slices';
 
-const rootReducer = combineReducers({ band: bandSlice.reducer });
+const rootReducer = combineReducers({
+  band: bandReducer,
+  members: membersReducer,
+  auth: authReducer,
+});
 
 export const store = configureStore({
   reducer: rootReducer,

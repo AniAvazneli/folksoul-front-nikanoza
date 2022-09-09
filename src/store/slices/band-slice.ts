@@ -9,7 +9,7 @@ const initialState: { band: TBandState } = {
   },
 };
 
-export const bandSlice = createSlice({
+const bandSlice = createSlice({
   name: 'band',
   initialState,
   reducers: {
@@ -20,3 +20,4 @@ export const bandSlice = createSlice({
 });
 
 export const bandActions = bandSlice.actions;
+export const bandReducer = bandSlice.reducer;

@@ -1,20 +1,33 @@
-import { Fb, Logo, NoteAnimation, Sun, Twitter, YouTube } from 'assets';
+import { Fb, Logo, Member, NoteAnimation, Sun, Twitter, YouTube } from 'assets';
 import { Link } from 'react-router-dom';
 import { Planet } from 'pages/Home/components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from 'store';
+import { member } from 'types';
 
 const Home = () => {
   const [animationStage, setAnimationStage] = useState<boolean>(true);
+  const [clickedSinger, setClickedSinger] = useState<member | null>(null);
+  const [textInfo, setTextInfo] = useState<string>('');
 
   const band = useAppSelector((state) => state.band.band);
+  const members = useAppSelector((state) => state.members.members);
+  const token = useAppSelector((state) => state.auth.token);
 
-  const stopAnimation = () => {
+  useEffect(() => {
+    setTextInfo(band.description);
+  }, [band.description]);
+
+  const stopAnimation = (singer: member) => {
     setAnimationStage(false);
+    setTextInfo(singer.biography);
+    setClickedSinger(singer);
   };
 
   const continueAnimation = () => {
     setAnimationStage(true);
+    setTextInfo(band.description);
+    setClickedSinger(null);
   };
 
   return (
@@ -25,7 +38,7 @@ const Home = () => {
       <header id='header' className='w-full flex justify-between items-center'>
         <img src={Logo} alt='' />
         <Link
-          to={'/login'}
+          to={token ? '/dashboard' : '/login'}
           id='login-btn'
           className='text-base text-[#FBFBFB] font-ninoMtavruli tracking-wide'
         >
@@ -56,32 +69,33 @@ const Home = () => {
               }`}
             />
           </div>
-          <div
-            id='mars'
-            className={`absolute w-[400px] h-[400px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_6s_linear_infinite] z-[477] ${
-              !animationStage ? 'pause' : ''
-            }`}
-          >
-            <Planet
-              className={`animate-[orbitMinus_6s_linear_infinite] ${
-                !animationStage ? 'pause' : ''
-              }`}
-              stopAnimation={stopAnimation}
-            />
-          </div>
-          <div
-            id='planet'
-            className={`absolute w-[600px] h-[600px] border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_8s_linear_infinite] z-[227] ${
-              !animationStage ? 'pause' : ''
-            }`}
-          >
-            <Planet
-              className={`animate-[orbitMinus_8s_linear_infinite] ${
-                !animationStage ? 'pause' : ''
-              }`}
-              stopAnimation={stopAnimation}
-            />
-          </div>
+          {members.length &&
+            members.map((member, index) => (
+              <div
+                id={'member-' + member.id}
+                key={index}
+                className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_6s_linear_infinite]  ${
+                  !animationStage ? 'pause' : ''
+                }`}
+                style={{
+                  width: member.orbitLength + 'px',
+                  height: member.orbitLength + 'px',
+                  zIndex: 800 - member.orbitLength,
+                  animationDelay: 100 / member.orbitLength + 's',
+                  animationDuration: 3000 / member.orbitLength + 's',
+                }}
+              >
+                <Planet
+                  className={`animate-[orbitMinus_6s_linear_infinite] ${
+                    !animationStage ? 'pause' : ''
+                  }`}
+                  key={'member-' + member.id + '-' + index}
+                  stopAnimation={stopAnimation}
+                  singer={member}
+                  clickedSinger={clickedSinger}
+                />
+              </div>
+            ))}
         </div>
         <div className='w-5/12 h-5/6 mt-48'>
           <div id='info' className='w-full bg-[#FBD560] h-full rounded-[20px]'>
@@ -94,7 +108,17 @@ const Home = () => {
                 id='image-box'
                 className='w-80 h-80 rounded-full border border-[solid #FFFFFF] -mt-40 bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)] drop-shadow-[2px_4px_14px_#000000] flex justify-center items-center'
               >
-                <img src={Logo} alt='' className='w-64 h-32' />
+                <img
+                  src={
+                    clickedSinger && clickedSinger.avatar
+                      ? process.env.REACT_APP_ROOT_URL + clickedSinger.avatar
+                      : clickedSinger
+                      ? Member
+                      : Logo
+                  }
+                  alt=''
+                  className='w-64 h-32'
+                />
               </div>
               <div
                 id='circle-sm'
@@ -103,9 +127,9 @@ const Home = () => {
             </div>
             <p
               id='info-text'
-              className='font-arial pl-16 mr-10 pr-10 mt-9 text-lg text-justify overflow-y-auto max-h-96'
+              className='font-arial pl-16 mr-10 pr-10 mt-9 text-lg text-justify overflow-y-auto max-h-80'
             >
-              {band.description}
+              {textInfo}
             </p>
           </div>
           <div className='h-9 mt-6 flex justify-center gap-x-12'>

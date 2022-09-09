@@ -20,7 +20,7 @@ export const fetchBandInfo = (): ThunkAction<
       const band = await fetchData();
       dispatch(bandActions.updateBand(band));
     } catch (error) {
-      throw new Error('ბენდზე ინფორმაცია ვერებნა');
+      throw new Error('ბენდზე ინფორმაცია ვერ მოიძებნა');
     }
   };
 };

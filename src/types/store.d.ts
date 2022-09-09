@@ -9,3 +9,13 @@ export type ThunkAction<R, S, E, A extends Action> = (
   getState: () => S,
   extraArgument: E
 ) => R;
+
+export type member = {
+  name: string;
+  instrument: string;
+  orbitLength: number;
+  color: string;
+  biography: string;
+  avatar: string;
+  id: number;
+};

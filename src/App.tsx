@@ -13,14 +13,19 @@ import {
 import EditLink from 'pages/EditLink';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { fetchBandInfo } from 'store';
+import { getCookie } from 'react-use-cookie';
+import { authActions, fetchBandInfo } from 'store';
 import { useAppDispatch } from 'store';
+import { fetchMembers } from 'store/actions/members-actions';
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const token = getCookie('token');
+    dispatch(authActions.onLogin(token));
     dispatch(fetchBandInfo());
+    dispatch(fetchMembers());
   }, [dispatch]);
   return (
     <div className='w-full h-full'>
