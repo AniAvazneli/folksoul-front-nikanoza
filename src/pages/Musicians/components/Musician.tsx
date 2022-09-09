@@ -23,7 +23,11 @@ const Musician: React.FC<{
       }
     >
       <img
-        src={props.singer.avatar ? props.singer.avatar : Member}
+        src={
+          props.singer.avatar
+            ? process.env.REACT_APP_ROOT_URL + props.singer.avatar
+            : Member
+        }
         alt=''
         className='w-36 h-36 mt-7 border rounded-full'
       />

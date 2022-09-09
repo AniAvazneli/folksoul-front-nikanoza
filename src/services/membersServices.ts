@@ -32,3 +32,27 @@ export const deleteMember = (data: { id: number; token: string }) => {
     },
   });
 };
+
+export const addMemberAvatar = (data: {
+  imageForm: FormData;
+  id: number;
+  token: string;
+}) => {
+  return axios.post('/singers-logos/' + data.id, data.imageForm, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};
+
+export const updateMemberAvatar = (data: {
+  imageForm: FormData;
+  id: number;
+  token: string;
+}) => {
+  return axios.post('/singers-logos/edit/' + data.id, data.imageForm, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};

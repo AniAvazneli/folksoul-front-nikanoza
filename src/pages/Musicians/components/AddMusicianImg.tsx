@@ -1,6 +1,8 @@
-import { Close, YouTube } from 'assets';
+import { Close, Member } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
+import { getCookie } from 'react-use-cookie';
+import { addMemberAvatar, updateMemberAvatar } from 'services';
 import { member } from 'types';
 
 const AddMusicianImg: React.FC<{
@@ -9,6 +11,7 @@ const AddMusicianImg: React.FC<{
 }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
+  const token = getCookie('token');
 
   const closeModalHandler = () => {
     props.close();
@@ -20,7 +23,32 @@ const AddMusicianImg: React.FC<{
     setFileSelected(true);
   };
 
-  const onSubmit = async () => {};
+  const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append(
+      'image',
+      imageInput.current?.files ? imageInput.current?.files[0] : ''
+    );
+    if (props.musician.avatar) {
+      try {
+        await updateMemberAvatar({
+          id: props.musician.id,
+          imageForm: formData,
+          token,
+        });
+        props.close();
+      } catch (error) {}
+    } else {
+      try {
+        await addMemberAvatar({
+          id: props.musician.id,
+          imageForm: formData,
+          token,
+        });
+        props.close();
+      } catch (error) {}
+    }
+  };
 
   return (
     <div className='flex flex-col items-center p-4'>
@@ -34,7 +62,13 @@ const AddMusicianImg: React.FC<{
       </Button>
       <InfoHeader>შეცვალე {props.musician.name}ს ავატარი</InfoHeader>
       <img
-        src={YouTube}
+        src={
+          props.musician.avatar && !fileSelected
+            ? props.musician.avatar
+            : fileSelected && imageInput.current?.files
+            ? URL.createObjectURL(imageInput.current?.files[0])
+            : Member
+        }
         alt=''
         className='w-56 h-56 rounded-full mt-20 border-2 border-white shadow-[2px_4px_14px_#000000]'
       />
