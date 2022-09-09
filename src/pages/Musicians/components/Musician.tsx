@@ -13,7 +13,7 @@ const Musician: React.FC<{
 }> = (props) => {
   const navigate = useNavigate();
   const editMusicianHandler = () => {
-    navigate('/musicians/edit/' + props.memberIndex);
+    navigate('/musicians/edit/' + props.singer.id);
   };
   return (
     <div

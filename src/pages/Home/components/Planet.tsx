@@ -1,4 +1,5 @@
 import { Beka, Beqa, Saba, Tamar, Vano } from 'assets';
+import { useEffect, useState } from 'react';
 import { member } from 'types';
 
 const Planet: React.FC<{
@@ -7,6 +8,8 @@ const Planet: React.FC<{
   singer: member;
   clickedSinger: member | null;
 }> = (props) => {
+  const [avatar, setAvatar] = useState<string>('');
+
   const stopAnimationHandler = () => {
     props.stopAnimation(props.singer);
   };
@@ -18,6 +21,11 @@ const Planet: React.FC<{
 
     return avatarArray[randomIndex];
   };
+
+  useEffect(() => {
+    const image = getRandomAvatar();
+    setAvatar(image);
+  }, []);
 
   return (
     <div
@@ -36,7 +44,7 @@ const Planet: React.FC<{
       }}
       onClick={stopAnimationHandler}
     >
-      <img src={getRandomAvatar()} alt='' />
+      <img src={avatar} alt='' />
       <div
         className={`w-20 h-10 border-4 bg-[#F2C94C] flex justify-center items-center absolute top-3/4 rounded-[50px]`}
         style={{ borderColor: props.singer.color }}

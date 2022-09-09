@@ -82,8 +82,7 @@ const Home = () => {
                   width: member.orbitLength + 'px',
                   height: member.orbitLength + 'px',
                   zIndex: 800 - member.orbitLength,
-                  animationDelay:
-                    100 / Math.floor(Math.random() * 600) - 200 + 's',
+                  animationDelay: 100 / member.orbitLength + 's',
                   animationDuration: 3000 / member.orbitLength + 's',
                 }}
               >

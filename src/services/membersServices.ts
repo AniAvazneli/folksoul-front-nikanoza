@@ -13,6 +13,14 @@ export const addNewMember = (data: { member: newMember; token: string }) => {
   });
 };
 
-export const updateMember = (data: { member: newMember; token: string }) => {
-  return axio
+export const updateMember = (data: {
+  member: newMember;
+  id: number;
+  token: string;
+}) => {
+  return axios.put('/singers/edit/' + data.id, data.member, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
 };

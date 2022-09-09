@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
 import { getCookie } from 'react-use-cookie';
-import { addNewMember } from 'services';
+import { addNewMember, updateMember } from 'services';
 import { useAppSelector } from 'store';
 import { MusicianFormValues } from 'types';
 import Button from './Button';
@@ -23,11 +23,9 @@ const MusicianForm = () => {
   const onSubmit: SubmitHandler<MusicianFormValues> = async (data) => {
     const refactorData = { ...data, orbitLength: +data.orbitLength };
     if (member && token) {
-      console.log('edit');
+      await updateMember({ member: refactorData, id: id ? +id : 0, token });
     } else {
-      console.log(token);
-      const response = await addNewMember({ member: refactorData, token });
-      console.log(response);
+      await addNewMember({ member: refactorData, token });
     }
   };
   return (
