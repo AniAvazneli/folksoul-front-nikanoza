@@ -12,6 +12,26 @@ const membersSlice = createSlice({
     updateMembers: (state, action: PayloadAction<member[]>) => {
       state.members = action.payload;
     },
+    addMember: (state, action: PayloadAction<member>) => {
+      state.members.push(action.payload);
+    },
+    updateMember: (state, action: PayloadAction<member>) => {
+      const copyState = state.members.slice();
+      const memberIndex = state.members.findIndex(
+        (singer) => singer.id === action.payload.id
+      );
+      const updatedMember = { ...action.payload };
+      copyState[memberIndex] = updatedMember;
+      state.members = copyState;
+    },
+    deleteMember: (state, action: PayloadAction<number>) => {
+      const memberIndex = state.members.findIndex(
+        (singer) => singer.id === action.payload
+      );
+      const copyState = state.members.slice();
+      copyState.splice(memberIndex, 1);
+      state.members = copyState;
+    },
   },
 });
 

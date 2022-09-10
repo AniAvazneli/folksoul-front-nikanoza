@@ -2,8 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from 'react-use-cookie';
 import { addNewMember, updateMember } from 'services';
-import { useAppSelector } from 'store';
-import { MusicianFormValues } from 'types';
+import { membersActions, useAppDispatch, useAppSelector } from 'store';
+import { member, MusicianFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 import Textarea from './Textarea';
@@ -17,12 +17,24 @@ const MusicianForm = () => {
 
   const { id } = useParams();
   const members = useAppSelector((state) => state.members.members);
+  const dispatch = useAppDispatch();
   const token = getCookie('token');
   const member = members.find((singer) => (id ? singer.id === +id : null));
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<MusicianFormValues> = async (data) => {
     const refactorData = { ...data, orbitLength: +data.orbitLength };
+    const lastMember = members[members.length - 1];
+    const newMember: member = {
+      ...refactorData,
+      id: lastMember ? lastMember.id + 1 : 1,
+      avatar: '',
+    };
+    const updatedMember = {
+      ...refactorData,
+      id: member?.id || 0,
+      avatar: member?.avatar || '',
+    };
     if (member && token) {
       try {
         await updateMember({
@@ -30,11 +42,13 @@ const MusicianForm = () => {
           id: id ? +id : 0,
           token,
         });
+        dispatch(membersActions.updateMember(updatedMember));
         navigate('/musicians');
       } catch (error) {}
     } else {
       try {
         await addNewMember({ member: refactorData, token });
+        dispatch(membersActions.addMember(newMember));
         navigate('/musicians');
       } catch (error) {}
     }

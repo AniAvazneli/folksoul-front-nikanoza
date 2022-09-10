@@ -1,4 +1,4 @@
-import { Close, YouTube } from 'assets';
+import { Close, Member } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { member } from 'types';
 
@@ -23,7 +23,11 @@ const MusicianDetails: React.FC<{
       <InfoHeader>{`${props.musician.name} ~ ${props.musician.instrument}`}</InfoHeader>
       <div className='overflow-y-auto flex flex-col items-center'>
         <img
-          src={YouTube}
+          src={
+            props.musician.avatar
+              ? process.env.REACT_APP_ROOT_URL + props.musician.avatar
+              : Member
+          }
           alt=''
           className=' w-32 h-32 rounded-full border-2 border-white shadow-[2px_4px_14px_#000000] mt-8'
         />
