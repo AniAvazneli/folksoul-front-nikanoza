@@ -1,7 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
-import { useAppSelector } from 'store';
-import { LinkFormValues } from 'types';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { addNewLink } from 'services';
+import { linksActions, useAppDispatch, useAppSelector } from 'store';
+import { link, LinkFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 
@@ -14,10 +16,32 @@ const LinkForm = () => {
 
   const { id } = useParams();
   const socialLinks = useAppSelector((state) => state.links.links);
+  const dispatch = useAppDispatch();
   const link = socialLinks.find((elem) => (id ? elem.id === +id : null));
+  const token = getCookie('token');
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LinkFormValues> = async (data) => {
-    console.log(data);
+    const lastLink = socialLinks[socialLinks.length - 1];
+    const newLink: link = {
+      ...data,
+      id: lastLink ? lastLink.id + 1 : 1,
+      logo: '',
+    };
+
+    // const updateLink: link = {
+    //   ...data,
+    //   id: link?.id || 0,
+    //   logo: link?.logo || '',
+    // };
+    if (link && token) {
+    } else {
+      try {
+        await addNewLink({ link: data, token });
+        dispatch(linksActions.addNewLink(newLink));
+        navigate('/links');
+      } catch (error) {}
+    }
   };
 
   return (

@@ -49,6 +49,7 @@ const Links = () => {
               <LinkComponent
                 key={index}
                 linkObj={link}
+                linkIndex={index}
                 openDeleteModal={openDeleteModal}
                 openImgUploadModal={openImgUploadModal}
               />

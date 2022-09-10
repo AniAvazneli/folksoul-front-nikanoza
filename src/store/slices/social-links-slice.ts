@@ -12,6 +12,9 @@ const linksSlice = createSlice({
     getLinksInfo: (state, action: PayloadAction<link[]>) => {
       state.links = action.payload;
     },
+    addNewLink: (state, action: PayloadAction<link>) => {
+      state.links.push(action.payload);
+    },
   },
 });
 
