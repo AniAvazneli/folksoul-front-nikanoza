@@ -15,6 +15,15 @@ const linksSlice = createSlice({
     addNewLink: (state, action: PayloadAction<link>) => {
       state.links.push(action.payload);
     },
+    updateLink: (state, action: PayloadAction<link>) => {
+      const copyState = state.links;
+      const linkIndex = state.links.findIndex(
+        (link) => link.id === action.payload.id
+      );
+      const updatedLink: link = { ...action.payload };
+      copyState[linkIndex] = updatedLink;
+      state.links = copyState;
+    },
   },
 });
 

@@ -20,7 +20,7 @@ const membersSlice = createSlice({
       const memberIndex = state.members.findIndex(
         (singer) => singer.id === action.payload.id
       );
-      const updatedMember = { ...action.payload };
+      const updatedMember: member = { ...action.payload };
       copyState[memberIndex] = updatedMember;
       state.members = copyState;
     },

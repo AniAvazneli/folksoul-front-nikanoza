@@ -1,11 +1,14 @@
 import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
+import { getCookie } from 'react-use-cookie';
+import { addLinkLogo } from 'services';
 import { link } from 'types';
 
 const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
+  const token = getCookie('token');
 
   const closeModalHandler = () => {
     props.close();
@@ -17,7 +20,17 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
     setFileSelected(true);
   };
 
-  const onSubmit = async () => {};
+  const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append(
+      'image',
+      imageInput.current?.files ? imageInput.current?.files[0] : ''
+    );
+    if (props.link.logo) {
+    } else {
+      await addLinkLogo({ imageForm: formData, id: props.link.id, token });
+    }
+  };
 
   return (
     <div className='flex flex-col items-center p-4'>
@@ -31,7 +44,11 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       </Button>
       <InfoHeader>შეცვალე სოციალური ბმულის ხატულა</InfoHeader>
       <span className='text-lg font-ninoMtavruli mt-16'>{props.link.name}</span>
-      <img src={YouTube} alt='' className='w-56 mt-16' />
+      <img
+        src={props.link.logo ? props.link.logo : YouTube}
+        alt=''
+        className='w-56 mt-16'
+      />
       <input
         placeholder='image'
         id='musician-avatar-input'

@@ -13,12 +13,24 @@ export const addNewLink = (data: { link: LinkFormValues; token: string }) => {
   });
 };
 
-export const updateLink = (data: {
+export const updateSocialLink = (data: {
   link: LinkFormValues;
   id: number;
   token: string;
 }) => {
   return axios.put('/links/edit/' + data.id, data.link, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};
+
+export const addLinkLogo = (data: {
+  imageForm: FormData;
+  id: number;
+  token: string;
+}) => {
+  return axios.post('/links-logos/' + data.id, data.imageForm, {
     headers: {
       authorization: `Bearer ${data.token}`,
     },

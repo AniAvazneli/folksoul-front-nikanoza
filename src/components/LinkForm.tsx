@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from 'react-use-cookie';
-import { addNewLink } from 'services';
+import { addNewLink, updateSocialLink } from 'services';
 import { linksActions, useAppDispatch, useAppSelector } from 'store';
 import { link, LinkFormValues } from 'types';
 import Button from './Button';
@@ -29,12 +29,17 @@ const LinkForm = () => {
       logo: '',
     };
 
-    // const updateLink: link = {
-    //   ...data,
-    //   id: link?.id || 0,
-    //   logo: link?.logo || '',
-    // };
+    const updateLink: link = {
+      ...data,
+      id: link?.id || 0,
+      logo: link?.logo || '',
+    };
     if (link && token) {
+      try {
+        await updateSocialLink({ link: { ...data }, id: id ? +id : 0, token });
+        dispatch(linksActions.updateLink(updateLink));
+        navigate('/links');
+      } catch (error) {}
     } else {
       try {
         await addNewLink({ link: data, token });
