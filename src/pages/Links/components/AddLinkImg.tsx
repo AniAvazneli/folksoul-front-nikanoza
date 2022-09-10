@@ -1,11 +1,9 @@
 import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
-import { LinkFormValues } from 'types/forms';
+import { link } from 'types';
 
-const AddLinkImg: React.FC<{ close: () => void; link: LinkFormValues }> = (
-  props
-) => {
+const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
 

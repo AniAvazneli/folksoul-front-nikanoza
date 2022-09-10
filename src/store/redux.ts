@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { bandReducer, membersReducer } from './slices';
+import { bandReducer, membersReducer, linksReducer } from './slices';
 
 const rootReducer = combineReducers({
   band: bandReducer,
   members: membersReducer,
+  links: linksReducer,
 });
 
 export const store = configureStore({

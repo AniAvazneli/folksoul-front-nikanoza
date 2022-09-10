@@ -1,10 +1,10 @@
 import { Close } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { LinkFormValues } from 'types/forms';
+import { link } from 'types';
 
 const DeleteLink: React.FC<{
   close: () => void;
-  link: LinkFormValues;
+  link: link;
 }> = (props) => {
   const closeModalHandler = () => {
     props.close();

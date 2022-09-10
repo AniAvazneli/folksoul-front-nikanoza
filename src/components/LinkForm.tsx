@@ -1,15 +1,20 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useAppSelector } from 'store';
 import { LinkFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 
-const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
+const LinkForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LinkFormValues>();
+
+  const { id } = useParams();
+  const socialLinks = useAppSelector((state) => state.links.links);
+  const link = socialLinks.find((elem) => (id ? elem.id === +id : null));
 
   const onSubmit: SubmitHandler<LinkFormValues> = async (data) => {
     console.log(data);
@@ -30,7 +35,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='text'
         register={register}
         validation={{}}
-        defaultValue={props.link?.name || ''}
+        defaultValue={link ? link.name : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.name && errors.name.message}
@@ -45,7 +50,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='text'
         register={register}
         validation={{}}
-        defaultValue={props.link?.link || ''}
+        defaultValue={link ? link.link : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.link && errors.link.message}
@@ -55,7 +60,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='submit'
         className='w-72 h-12 mt-14 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52] rounded-md'
       >
-        {props.link ? 'ცვლილებების შენახვა' : 'დაამატე სოციალური ბმული'}
+        {link ? 'ცვლილებების შენახვა' : 'დაამატე სოციალური ბმული'}
       </Button>
       <Link
         to={'/links'}

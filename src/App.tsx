@@ -14,8 +14,7 @@ import EditLink from 'pages/EditLink';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { fetchBandInfo } from 'store';
-import { useAppDispatch } from 'store';
-import { fetchMembers } from 'store/actions/members-actions';
+import { useAppDispatch, fetchMembers } from 'store';
 
 function App() {
   const dispatch = useAppDispatch();

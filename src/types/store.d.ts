@@ -19,3 +19,10 @@ export type member = {
   avatar: string;
   id: number;
 };
+
+export type link = {
+  name: string;
+  link: string;
+  logo: string;
+  id: number;
+};
