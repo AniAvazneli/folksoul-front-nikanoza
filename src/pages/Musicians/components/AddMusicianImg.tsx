@@ -3,6 +3,7 @@ import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
 import { getCookie } from 'react-use-cookie';
 import { addMemberAvatar, updateMemberAvatar } from 'services';
+import { fetchMembers, useAppDispatch } from 'store';
 import { member } from 'types';
 
 const AddMusicianImg: React.FC<{
@@ -12,6 +13,7 @@ const AddMusicianImg: React.FC<{
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
   const token = getCookie('token');
+  const dispatch = useAppDispatch();
 
   const closeModalHandler = () => {
     props.close();
@@ -36,6 +38,7 @@ const AddMusicianImg: React.FC<{
           imageForm: formData,
           token,
         });
+        dispatch(fetchMembers());
         props.close();
       } catch (error) {}
     } else {
@@ -45,6 +48,7 @@ const AddMusicianImg: React.FC<{
           imageForm: formData,
           token,
         });
+        dispatch(fetchMembers());
         props.close();
       } catch (error) {}
     }
@@ -64,7 +68,7 @@ const AddMusicianImg: React.FC<{
       <img
         src={
           props.musician.avatar && !fileSelected
-            ? props.musician.avatar
+            ? process.env.REACT_APP_ROOT_URL + props.musician.avatar
             : fileSelected && imageInput.current?.files
             ? URL.createObjectURL(imageInput.current?.files[0])
             : Member

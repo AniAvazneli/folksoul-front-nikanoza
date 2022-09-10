@@ -1,6 +1,7 @@
 import { Card, InfoHeader, Menu, Textarea, Button } from 'components';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'store';
 
 const EditBand = () => {
   const {
@@ -8,6 +9,8 @@ const EditBand = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<{ about: string }>();
+
+  const band = useAppSelector((state) => state.band.band);
 
   const onSubmit: SubmitHandler<{ about: string }> = async (data) => {};
   return (
@@ -41,6 +44,7 @@ const EditBand = () => {
                     '*ბენდის ინფორმაცია უნდა შედგებოდეს მინიმუმ 100 სიმბოლოსგან',
                 },
               }}
+              defaultValue={band.description}
             />
           </div>
           <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
@@ -51,7 +55,7 @@ const EditBand = () => {
             className='w-40 h-10 bg-[#53C02C] rounded-md mb-auto font-ninoMtavruli text-white text-lg'
             type='submit'
           >
-            ატვირთე
+            შეინახე
           </Button>
         </form>
         <Link

@@ -2,13 +2,15 @@ import { Close, YouTube } from 'assets';
 import { Button, InfoHeader } from 'components';
 import { useRef, useState } from 'react';
 import { getCookie } from 'react-use-cookie';
-import { addLinkLogo } from 'services';
+import { addLinkLogo, updateLinkLogo } from 'services';
+import { fetchLinks, useAppDispatch } from 'store';
 import { link } from 'types';
 
 const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
   const token = getCookie('token');
+  const dispatch = useAppDispatch();
 
   const closeModalHandler = () => {
     props.close();
@@ -27,8 +29,17 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       imageInput.current?.files ? imageInput.current?.files[0] : ''
     );
     if (props.link.logo) {
+      try {
+        await updateLinkLogo({ imageForm: formData, id: props.link.id, token });
+        dispatch(fetchLinks());
+        props.close();
+      } catch (error) {}
     } else {
-      await addLinkLogo({ imageForm: formData, id: props.link.id, token });
+      try {
+        await addLinkLogo({ imageForm: formData, id: props.link.id, token });
+        dispatch(fetchLinks());
+        props.close();
+      } catch (error) {}
     }
   };
 
@@ -45,9 +56,15 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       <InfoHeader>შეცვალე სოციალური ბმულის ხატულა</InfoHeader>
       <span className='text-lg font-ninoMtavruli mt-16'>{props.link.name}</span>
       <img
-        src={props.link.logo ? props.link.logo : YouTube}
+        src={
+          props.link.logo && !fileSelected
+            ? process.env.REACT_APP_ROOT_URL + props.link.logo
+            : fileSelected && imageInput.current?.files
+            ? URL.createObjectURL(imageInput.current?.files[0])
+            : YouTube
+        }
         alt=''
-        className='w-56 mt-16'
+        className='h-36 mt-16'
       />
       <input
         placeholder='image'

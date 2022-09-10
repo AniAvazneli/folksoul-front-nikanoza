@@ -36,3 +36,23 @@ export const addLinkLogo = (data: {
     },
   });
 };
+
+export const updateLinkLogo = (data: {
+  imageForm: FormData;
+  id: number;
+  token: string;
+}) => {
+  return axios.put('/links-logos/edit/' + data.id, data.imageForm, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};
+
+export const deleteSocialLink = (data: { id: number; token: string }) => {
+  return axios.delete('/links/delete/' + data.id, {
+    headers: {
+      authorization: `Bearer ${data.token}`,
+    },
+  });
+};

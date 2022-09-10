@@ -50,7 +50,7 @@ export const updateMemberAvatar = (data: {
   id: number;
   token: string;
 }) => {
-  return axios.post('/singers-logos/edit/' + data.id, data.imageForm, {
+  return axios.put('/singers-logos/edit/' + data.id, data.imageForm, {
     headers: {
       authorization: `Bearer ${data.token}`,
     },
