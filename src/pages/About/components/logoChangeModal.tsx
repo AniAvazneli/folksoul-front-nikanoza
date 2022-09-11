@@ -8,6 +8,7 @@ import { fetchBandInfo, useAppDispatch, useAppSelector } from 'store';
 const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const band = useAppSelector((state) => state.band.band);
   const dispatch = useAppDispatch();
   const token = getCookie('token');
@@ -34,7 +35,11 @@ const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
       await updateBandLogo({ form: formData, token });
       dispatch(fetchBandInfo());
       props.close();
-    } catch (error) {}
+    } catch (error) {
+      setError(
+        '*ფაილი არ შეესაბამება ფორმატს png,jpg,jpeg ან აღემატება დასაშვებ ზომას'
+      );
+    }
   };
 
   return (
@@ -68,11 +73,14 @@ const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
         hidden={true}
         ref={imageInput}
       />
+      <div className='mt-3 text-[#ec3030] font-ninoMtavruli w-1/2 h-10 ml-5 flex gap-3'>
+        {error}
+      </div>
       {!fileSelected && (
         <Button
           id='img-upload-btn'
           onClick={uploadImageHandler}
-          className='w-40 h-10 bg-[#143B52] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#143B52] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
         >
           ატვირთე
@@ -81,7 +89,7 @@ const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
       {fileSelected && (
         <Button
           id='musician-img-sent'
-          className='w-40 h-10 bg-[#53C02C] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#53C02C] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
           onClick={onSubmit}
         >

@@ -9,6 +9,7 @@ import { link } from 'types';
 const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const token = getCookie('token');
   const dispatch = useAppDispatch();
 
@@ -33,13 +34,21 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
         await updateLinkLogo({ imageForm: formData, id: props.link.id, token });
         dispatch(fetchLinks());
         props.close();
-      } catch (error) {}
+      } catch (error) {
+        setError(
+          '*ფაილი არ შეესაბამება ფორმატს png,jpg,jpeg ან აღემატება დასაშვებ ზომას'
+        );
+      }
     } else {
       try {
         await addLinkLogo({ imageForm: formData, id: props.link.id, token });
         dispatch(fetchLinks());
         props.close();
-      } catch (error) {}
+      } catch (error) {
+        setError(
+          '*ფაილი არ შეესაბამება ფორმატს png,jpg,jpeg ან აღემატება დასაშვებ ზომას'
+        );
+      }
     }
   };
 
@@ -66,6 +75,9 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
         alt=''
         className='h-36 mt-16'
       />
+      <div className='mt-3 text-[#ec3030] font-ninoMtavruli w-1/2 h-10 ml-5 flex gap-3'>
+        {error}
+      </div>
       <input
         placeholder='image'
         id='musician-avatar-input'
@@ -79,7 +91,7 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
         <Button
           id='img-upload-btn'
           onClick={uploadImageHandler}
-          className='w-40 h-10 bg-[#143B52] rounded-md mt-16 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#143B52] rounded-md mt-3 font-ninoMtavruli text-white text-lg'
           type='button'
         >
           ატვირთე
@@ -88,7 +100,7 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       {fileSelected && (
         <Button
           id='musician-img-sent'
-          className='w-40 h-10 bg-[#53C02C] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#53C02C] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
           onClick={onSubmit}
         >

@@ -12,6 +12,7 @@ const AddMusicianImg: React.FC<{
 }> = (props) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [fileSelected, setFileSelected] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const token = getCookie('token');
   const dispatch = useAppDispatch();
 
@@ -40,7 +41,11 @@ const AddMusicianImg: React.FC<{
         });
         dispatch(fetchMembers());
         props.close();
-      } catch (error) {}
+      } catch (error) {
+        setError(
+          '*ფაილი არ შეესაბამება ფორმატს png,jpg,jpeg ან აღემატება დასაშვებ ზომას'
+        );
+      }
     } else {
       try {
         await addMemberAvatar({
@@ -50,7 +55,11 @@ const AddMusicianImg: React.FC<{
         });
         dispatch(fetchMembers());
         props.close();
-      } catch (error) {}
+      } catch (error) {
+        setError(
+          '*ფაილი არ შეესაბამება ფორმატს png,jpg,jpeg ან აღემატება დასაშვებ ზომას'
+        );
+      }
     }
   };
 
@@ -76,6 +85,9 @@ const AddMusicianImg: React.FC<{
         alt=''
         className='w-56 h-56 rounded-full mt-20 border-2 border-white shadow-[2px_4px_14px_#000000]'
       />
+      <div className='mt-3 text-[#ec3030] font-ninoMtavruli w-1/2 h-10 ml-5 flex gap-3'>
+        {error}
+      </div>
       <input
         placeholder='image'
         id='musician-avatar-input'
@@ -89,7 +101,7 @@ const AddMusicianImg: React.FC<{
         <Button
           id='img-upload-btn'
           onClick={uploadImageHandler}
-          className='w-40 h-10 bg-[#143B52] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#143B52] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
         >
           ატვირთე
@@ -98,7 +110,7 @@ const AddMusicianImg: React.FC<{
       {fileSelected && (
         <Button
           id='musician-img-sent'
-          className='w-40 h-10 bg-[#53C02C] rounded-md mt-20 font-ninoMtavruli text-white text-lg'
+          className='w-40 h-10 bg-[#53C02C] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
           onClick={onSubmit}
         >
