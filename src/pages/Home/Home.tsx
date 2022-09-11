@@ -14,6 +14,9 @@ const Home = () => {
   const band = useAppSelector((state) => state.band.band);
   const members = useAppSelector((state) => state.members.members);
   const token = getCookie('token');
+  const sortedMembers = members
+    .slice()
+    .sort((a, b) => a.orbitLength - b.orbitLength);
 
   useEffect(() => {
     setTextInfo(band.description);
@@ -34,7 +37,7 @@ const Home = () => {
   return (
     <div
       id='main-page'
-      className='w-full h-full bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)] pl-[73px] pr-[92px] pt-6 pb-[78px] overflow-y-hidden'
+      className='w-full h-full fixed bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)] pl-[73px] pr-[92px] pt-6 pb-[78px] overflow-y-hidden'
     >
       <header id='header' className='w-full flex justify-between items-center'>
         <img src={Logo} alt='' />
@@ -52,7 +55,7 @@ const Home = () => {
       >
         <div
           id='solar-system'
-          className=' w-1/2 h-full mt-10 flex justify-center items-center'
+          className=' w-1/2 h-full mt-10 flex justify-center items-center overflow-hidden'
         >
           <div
             id='sun-box'
@@ -71,40 +74,47 @@ const Home = () => {
             />
           </div>
           {members.length > 0 &&
-            members.map((member, index) => (
-              <div
-                id={'member-' + member.id}
-                key={index}
-                className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full`}
-                style={{
-                  width: member.orbitLength + 'px',
-                  height: member.orbitLength + 'px',
-                }}
-              >
+            members.map((member, index) => {
+              const indexInSort = sortedMembers.findIndex(
+                (singer) => singer.id === member.id
+              );
+
+              const calculateZIndex = members.length - indexInSort;
+              return (
                 <div
-                  className={`absolute animate-[orbit_6s_linear_infinite] ${
-                    !animationStage ? 'pause' : ''
-                  }`}
+                  id={'member-' + member.id}
+                  key={index}
+                  className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full`}
                   style={{
                     width: member.orbitLength + 'px',
                     height: member.orbitLength + 'px',
-                    zIndex: 800 - member.orbitLength,
-                    animationDelay: 100 / member.orbitLength + 's',
-                    animationDuration: 3000 / member.orbitLength + 's',
                   }}
                 >
-                  <Planet
-                    className={`animate-[orbitMinus_6s_linear_infinite] ${
+                  <div
+                    className={`absolute rounded-full animate-[orbit_6s_linear_infinite] ${
                       !animationStage ? 'pause' : ''
                     }`}
-                    key={'member-' + member.id + '-' + index}
-                    stopAnimation={stopAnimation}
-                    singer={member}
-                    clickedSinger={clickedSinger}
-                  />
+                    style={{
+                      width: member.orbitLength + 'px',
+                      height: member.orbitLength + 'px',
+                      zIndex: calculateZIndex,
+                      animationDelay: 100 / member.orbitLength + 's',
+                      animationDuration: 3000 / member.orbitLength + 's',
+                    }}
+                  >
+                    <Planet
+                      className={`animate-[orbitMinus_6s_linear_infinite] ${
+                        !animationStage ? 'pause' : ''
+                      }`}
+                      key={'member-' + member.id + '-' + index}
+                      stopAnimation={stopAnimation}
+                      singer={member}
+                      clickedSinger={clickedSinger}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
         <div className='w-5/12 h-5/6 mt-48'>
           <div id='info' className='w-full bg-[#FBD560] h-full rounded-[20px]'>
