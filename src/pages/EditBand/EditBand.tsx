@@ -1,7 +1,10 @@
 import { Card, InfoHeader, Menu, Textarea, Button } from 'components';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from 'store';
+import { Link, useNavigate } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { updateBandDescription } from 'services';
+import { fetchBandInfo, useAppDispatch, useAppSelector } from 'store';
+import { TBandState } from 'types';
 
 const EditBand = () => {
   const {
@@ -11,8 +14,18 @@ const EditBand = () => {
   } = useForm<{ about: string }>();
 
   const band = useAppSelector((state) => state.band.band);
+  const token = getCookie('token');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<{ about: string }> = async (data) => {};
+  const onSubmit: SubmitHandler<{ about: string }> = async (data) => {
+    const newBand: TBandState = { ...band, description: data.about };
+    try {
+      await updateBandDescription({ band: newBand, token });
+      dispatch(fetchBandInfo());
+      navigate('/about');
+    } catch (error) {}
+  };
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>
       <Menu />
