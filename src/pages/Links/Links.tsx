@@ -1,19 +1,13 @@
 import { Card, InfoHeader, Menu, Modal } from 'components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchLinks, useAppDispatch, useAppSelector } from 'store';
+import { useAppSelector } from 'store';
 import { AddLinkImg, DeleteLink, LinkComponent } from './components';
 
 const Links = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [imgUploadModal, setImgUploadModal] = useState<boolean>();
   const [linkIndex, setLinkIndex] = useState<number | null>(null);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchLinks());
-  }, [dispatch]);
 
   const socialLinks = useAppSelector((state) => state.links.links);
 

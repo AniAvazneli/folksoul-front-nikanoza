@@ -13,6 +13,7 @@ const MusicianForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<MusicianFormValues>();
 
   const { id } = useParams();
@@ -44,13 +45,29 @@ const MusicianForm = () => {
         });
         dispatch(membersActions.updateMember(updatedMember));
         navigate('/musicians');
-      } catch (error) {}
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
     } else {
       try {
         await addNewMember({ member: refactorData, token });
         dispatch(membersActions.addMember(newMember));
         navigate('/musicians');
-      } catch (error) {}
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
     }
   };
   return (

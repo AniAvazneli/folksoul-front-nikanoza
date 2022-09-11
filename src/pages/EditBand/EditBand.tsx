@@ -11,6 +11,7 @@ const EditBand = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<{ about: string }>();
 
   const band = useAppSelector((state) => state.band.band);
@@ -24,7 +25,15 @@ const EditBand = () => {
       await updateBandDescription({ band: newBand, token });
       dispatch(fetchBandInfo());
       navigate('/about');
-    } catch (error) {}
+    } catch (error) {
+      const errorObj = error.response.data[0];
+      const label = errorObj.context.label;
+      const errorText = errorObj.message;
+      setError(label, {
+        type: 'custom',
+        message: '*' + errorText,
+      });
+    }
   };
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>

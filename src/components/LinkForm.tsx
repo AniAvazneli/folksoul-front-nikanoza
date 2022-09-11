@@ -12,6 +12,7 @@ const LinkForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LinkFormValues>();
 
   const { id } = useParams();
@@ -39,13 +40,29 @@ const LinkForm = () => {
         await updateSocialLink({ link: { ...data }, id: id ? +id : 0, token });
         dispatch(linksActions.updateLink(updateLink));
         navigate('/links');
-      } catch (error) {}
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
     } else {
       try {
         await addNewLink({ link: data, token });
         dispatch(linksActions.addNewLink(newLink));
         navigate('/links');
-      } catch (error) {}
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
     }
   };
 

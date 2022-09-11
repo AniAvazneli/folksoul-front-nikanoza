@@ -75,26 +75,34 @@ const Home = () => {
               <div
                 id={'member-' + member.id}
                 key={index}
-                className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full animate-[orbit_6s_linear_infinite]  ${
-                  !animationStage ? 'pause' : ''
-                }`}
+                className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full`}
                 style={{
                   width: member.orbitLength + 'px',
                   height: member.orbitLength + 'px',
-                  zIndex: 800 - member.orbitLength,
-                  animationDelay: 100 / member.orbitLength + 's',
-                  animationDuration: 3000 / member.orbitLength + 's',
                 }}
               >
-                <Planet
-                  className={`animate-[orbitMinus_6s_linear_infinite] ${
+                <div
+                  className={`absolute animate-[orbit_6s_linear_infinite] ${
                     !animationStage ? 'pause' : ''
                   }`}
-                  key={'member-' + member.id + '-' + index}
-                  stopAnimation={stopAnimation}
-                  singer={member}
-                  clickedSinger={clickedSinger}
-                />
+                  style={{
+                    width: member.orbitLength + 'px',
+                    height: member.orbitLength + 'px',
+                    zIndex: 800 - member.orbitLength,
+                    animationDelay: 100 / member.orbitLength + 's',
+                    animationDuration: 3000 / member.orbitLength + 's',
+                  }}
+                >
+                  <Planet
+                    className={`animate-[orbitMinus_6s_linear_infinite] ${
+                      !animationStage ? 'pause' : ''
+                    }`}
+                    key={'member-' + member.id + '-' + index}
+                    stopAnimation={stopAnimation}
+                    singer={member}
+                    clickedSinger={clickedSinger}
+                  />
+                </div>
               </div>
             ))}
         </div>

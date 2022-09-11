@@ -5,6 +5,7 @@ import { setCookie } from 'react-use-cookie';
 import { getCookie } from 'react-use-cookie';
 import Button from './Button';
 import { useEffect } from 'react';
+import { fetchLinks, useAppDispatch } from 'store';
 
 const Menu = () => {
   const { pathname } = useLocation();
@@ -16,6 +17,12 @@ const Menu = () => {
       navigate('/');
     }
   }, [token, navigate]);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLinks());
+  }, [dispatch]);
 
   const onLogout = () => {
     setCookie('token', '');
