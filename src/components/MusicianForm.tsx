@@ -1,19 +1,74 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { MusicianFormValues } from 'types';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { addNewMember, updateMember } from 'services';
+import { membersActions, useAppDispatch, useAppSelector } from 'store';
+import { member, MusicianFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 import Textarea from './Textarea';
 
-const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
+const MusicianForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<MusicianFormValues>();
 
+  const { id } = useParams();
+  const members = useAppSelector((state) => state.members.members);
+  const dispatch = useAppDispatch();
+  const token = getCookie('token');
+  const member = members.find((singer) => (id ? singer.id === +id : null));
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<MusicianFormValues> = async (data) => {
-    console.log(data);
+    const refactorData = { ...data, orbitLength: +data.orbitLength };
+    const lastMember = members[members.length - 1];
+    const newMember: member = {
+      ...refactorData,
+      id: lastMember ? lastMember.id + 1 : 1,
+      avatar: '',
+    };
+    const updatedMember = {
+      ...refactorData,
+      id: member?.id || 0,
+      avatar: member?.avatar || '',
+    };
+    if (member && token) {
+      try {
+        await updateMember({
+          member: refactorData,
+          id: id ? +id : 0,
+          token,
+        });
+        dispatch(membersActions.updateMember(updatedMember));
+        navigate('/musicians');
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
+    } else {
+      try {
+        await addNewMember({ member: refactorData, token });
+        dispatch(membersActions.addMember(newMember));
+        navigate('/musicians');
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
+    }
   };
   return (
     <form
@@ -22,7 +77,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
     >
       <Input
         label='name'
-        placeholder='მუზიკანტის სახელი'
+        placeholder='მუსიკოსის სახელი'
         id='new-musician-name'
         className={`w-64 h-14 border rounded-md text-center ${
           errors.name ? 'border-[#ec3030]' : 'border-[#143B52]'
@@ -40,7 +95,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
             message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
-        defaultValue={props.musician?.name || ''}
+        defaultValue={member ? member?.name : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.name && errors.name.message}
@@ -48,7 +103,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
       <div id='middle-form' className='flex gap-x-8'>
         <Input
           label='instrument'
-          placeholder='მუსიკოსის სახელი'
+          placeholder='ინსტრუმენტი'
           id='new-musician-instrument'
           className={`w-40 h-14 border rounded-md text-center ${
             errors.instrument ? 'border-[#ec3030]' : 'border-[#143B52]'
@@ -66,7 +121,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
               message: '*სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
             },
           }}
-          defaultValue={props.musician?.instrument || ''}
+          defaultValue={member ? member.instrument : ''}
         />
         <Input
           label='orbitLength'
@@ -83,8 +138,14 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
               value: /^[0-9]{1,}$/,
               message: '*ორბიტის სიგრძე უნდა იყოს დადებითი რიცხვი',
             },
+            validate: {
+              min: (value: string) =>
+                +value > 200 || 'ორბიტის სიგრძე უნდა იყოს 200ზე მეტი',
+              max: (value: string) =>
+                +value < 800 || 'ორბიტის სიგრძე უნდა იყოს 800ზე ნაკლები',
+            },
           }}
-          defaultValue={props.musician?.orbitLength || ''}
+          defaultValue={member ? member.orbitLength.toString() : ''}
         />
         <Input
           label='color'
@@ -102,7 +163,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
               message: '*ფერი უნდა იყოს HEX ფორმატის',
             },
           }}
-          defaultValue={props.musician?.color || ''}
+          defaultValue={member ? member.color : ''}
         />
       </div>
       <div className='p-2 flex flex-col text-[#ec3030] font-ninoMtavruli'>
@@ -125,7 +186,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
             message: '*ბიოგრაფია უნდა შეიცავდეს მხოლოდ ქართულ ასოებს',
           },
         }}
-        defaultValue={props.musician?.biography || ''}
+        defaultValue={member ? member.biography : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.biography && errors.biography.message}
@@ -135,7 +196,7 @@ const MusicianForm: React.FC<{ musician?: MusicianFormValues }> = (props) => {
         type='submit'
         className='w-52 h-12 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52]'
       >
-        {props.musician ? 'ცვლილებების შენახვა' : 'დაამატე წევრი'}
+        {member ? 'ცვლილებების შენახვა' : 'დაამატე წევრი'}
       </Button>
       <Link
         to={'/musicians'}

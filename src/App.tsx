@@ -11,9 +11,18 @@ import {
   NewMusician,
 } from 'pages';
 import EditLink from 'pages/EditLink';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { fetchBandInfo } from 'store';
+import { useAppDispatch, fetchMembers } from 'store';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBandInfo());
+    dispatch(fetchMembers());
+  }, [dispatch]);
   return (
     <div className='w-full h-full'>
       <Routes>

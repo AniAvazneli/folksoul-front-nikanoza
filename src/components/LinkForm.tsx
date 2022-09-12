@@ -1,18 +1,69 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { LinkFormValues } from 'types';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { addNewLink, updateSocialLink } from 'services';
+import { linksActions, useAppDispatch, useAppSelector } from 'store';
+import { link, LinkFormValues } from 'types';
 import Button from './Button';
 import Input from './Input';
 
-const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
+const LinkForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LinkFormValues>();
 
+  const { id } = useParams();
+  const socialLinks = useAppSelector((state) => state.links.links);
+  const dispatch = useAppDispatch();
+  const link = socialLinks.find((elem) => (id ? elem.id === +id : null));
+  const token = getCookie('token');
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<LinkFormValues> = async (data) => {
-    console.log(data);
+    const lastLink = socialLinks[socialLinks.length - 1];
+    const newLink: link = {
+      ...data,
+      id: lastLink ? lastLink.id + 1 : 1,
+      logo: '',
+    };
+
+    const updateLink: link = {
+      ...data,
+      id: link?.id || 0,
+      logo: link?.logo || '',
+    };
+    if (link && token) {
+      try {
+        await updateSocialLink({ link: { ...data }, id: id ? +id : 0, token });
+        dispatch(linksActions.updateLink(updateLink));
+        navigate('/links');
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
+    } else {
+      try {
+        await addNewLink({ link: data, token });
+        dispatch(linksActions.addNewLink(newLink));
+        navigate('/links');
+      } catch (error) {
+        const errorObj = error.response.data[0];
+        const label = errorObj.context.label;
+        const errorText = errorObj.message;
+        setError(label, {
+          type: 'custom',
+          message: '*' + errorText,
+        });
+      }
+    }
   };
 
   return (
@@ -30,7 +81,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='text'
         register={register}
         validation={{}}
-        defaultValue={props.link?.name || ''}
+        defaultValue={link ? link.name : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.name && errors.name.message}
@@ -45,7 +96,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='text'
         register={register}
         validation={{}}
-        defaultValue={props.link?.link || ''}
+        defaultValue={link ? link.link : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.link && errors.link.message}
@@ -55,7 +106,7 @@ const LinkForm: React.FC<{ link?: LinkFormValues }> = (props) => {
         type='submit'
         className='w-72 h-12 mt-14 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52] rounded-md'
       >
-        {props.link ? 'ცვლილებების შენახვა' : 'დაამატე სოციალური ბმული'}
+        {link ? 'ცვლილებების შენახვა' : 'დაამატე სოციალური ბმული'}
       </Button>
       <Link
         to={'/links'}

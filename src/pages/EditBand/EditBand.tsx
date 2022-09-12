@@ -1,15 +1,40 @@
 import { Card, InfoHeader, Menu, Textarea, Button } from 'components';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getCookie } from 'react-use-cookie';
+import { updateBandDescription } from 'services';
+import { fetchBandInfo, useAppDispatch, useAppSelector } from 'store';
+import { TBandState } from 'types';
 
 const EditBand = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<{ about: string }>();
 
-  const onSubmit: SubmitHandler<{ about: string }> = async (data) => {};
+  const band = useAppSelector((state) => state.band.band);
+  const token = getCookie('token');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<{ about: string }> = async (data) => {
+    const newBand: TBandState = { ...band, description: data.about };
+    try {
+      await updateBandDescription({ band: newBand, token });
+      dispatch(fetchBandInfo());
+      navigate('/about');
+    } catch (error) {
+      const errorObj = error.response.data[0];
+      const label = errorObj.context.label;
+      const errorText = errorObj.message;
+      setError(label, {
+        type: 'custom',
+        message: '*' + errorText,
+      });
+    }
+  };
   return (
     <div className='w-full h-full flex items-center bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)]'>
       <Menu />
@@ -41,6 +66,7 @@ const EditBand = () => {
                     '*ბენდის ინფორმაცია უნდა შედგებოდეს მინიმუმ 100 სიმბოლოსგან',
                 },
               }}
+              defaultValue={band.description}
             />
           </div>
           <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
@@ -51,7 +77,7 @@ const EditBand = () => {
             className='w-40 h-10 bg-[#53C02C] rounded-md mb-auto font-ninoMtavruli text-white text-lg'
             type='submit'
           >
-            ატვირთე
+            შეინახე
           </Button>
         </form>
         <Link

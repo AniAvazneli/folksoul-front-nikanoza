@@ -1,1 +1,4 @@
-export { default as loginService } from './loginServices';
+export * from './loginServices';
+export * from './bandServices';
+export * from './membersServices';
+export * from './socialLinksServices';

@@ -1,16 +1,28 @@
 import { Close } from 'assets';
 import { Button, InfoHeader } from 'components';
-import { MusicianFormValues } from 'types';
+import { getCookie } from 'react-use-cookie';
+import { deleteMember } from 'services';
+import { membersActions, useAppDispatch } from 'store';
+import { member } from 'types';
 
 const MusicianDelete: React.FC<{
   close: () => void;
-  musician: MusicianFormValues;
+  musician: member;
 }> = (props) => {
   const closeModalHandler = () => {
     props.close();
   };
 
-  const musicianDeleteHandler = () => {};
+  const token = getCookie('token');
+  const dispatch = useAppDispatch();
+
+  const musicianDeleteHandler = async () => {
+    try {
+      await deleteMember({ id: props.musician.id, token });
+      dispatch(membersActions.deleteMember(props.musician.id));
+      props.close();
+    } catch (error) {}
+  };
 
   return (
     <div className='flex flex-col items-center p-4'>
@@ -22,7 +34,7 @@ const MusicianDelete: React.FC<{
       >
         <img src={Close} alt='' />
       </Button>
-      <InfoHeader>გსურთ წევრის წაშლა?</InfoHeader>
+      <InfoHeader>გსურთ წაშალოთ {props.musician.name}?</InfoHeader>
       <div className='flex gap-10 mt-24'>
         <Button
           className='w-40 h-10 bg-[#EB5757] rounded-md mt-20 font-ninoMtavruli text-white text-lg'

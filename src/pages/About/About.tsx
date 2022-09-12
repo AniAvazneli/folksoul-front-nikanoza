@@ -1,12 +1,14 @@
-import { Camera, Edit, YouTube } from 'assets';
+import { Camera, Edit } from 'assets';
 import { Button, Card, InfoHeader, Menu, Modal } from 'components';
 import { LogoChangeModal } from 'pages/About/components';
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'store';
 
 const About = () => {
   const [logoCangeModal, setLogoChangeModal] = useState<boolean>(false);
+  const band = useAppSelector((state) => state.band.band);
 
   const closeLogoChangeModal = () => {
     setLogoChangeModal(false);
@@ -39,7 +41,7 @@ const About = () => {
               className='w-52 h-52 border-[#3B5495] border-[6.5px] rounded-full drop-shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] relative'
             >
               <img
-                src={YouTube}
+                src={process.env.REACT_APP_ROOT_URL + band.logo}
                 alt=''
                 className='w-full h-full rounded-full'
               />
@@ -55,7 +57,9 @@ const About = () => {
             <p
               id='band-info'
               className='w-full h-1/2 text-justify font-arial text-base leading-6 mt-12'
-            ></p>
+            >
+              {band.description}
+            </p>
           </div>
         </div>
       </Card>

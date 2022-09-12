@@ -14,3 +14,8 @@ export { default as Close } from './close.png';
 export { default as Edit } from './edit.png';
 export { default as Sun } from './sun.png';
 export { default as NoteAnimation } from './noteAnimation.png';
+export { default as Beka } from './beka.png';
+export { default as Beqa } from './beqa.png';
+export { default as Saba } from './saba.png';
+export { default as Tamar } from './tamar.png';
+export { default as Vano } from './vano.png';

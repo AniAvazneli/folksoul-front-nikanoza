@@ -3,8 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from 'components';
 import { LoginFormValues } from 'types';
 import { Heading } from 'assets';
-import { loginService } from 'services';
+import { login } from 'services';
 import { useNavigate } from 'react-router-dom';
+import { setCookie } from 'react-use-cookie';
 
 const Login = () => {
   const {
@@ -17,8 +18,8 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
-      const response = await loginService.login(data);
-      console.log(response.data);
+      const response = await login(data);
+      setCookie('token', response.data.token, { days: 30 });
       navigate('/dashboard');
     } catch (error) {
       console.log(error);

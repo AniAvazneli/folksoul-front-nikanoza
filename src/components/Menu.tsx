@@ -1,8 +1,33 @@
 import { Door, Home, Member, Note, YouTube } from 'assets';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { setCookie } from 'react-use-cookie';
+import { getCookie } from 'react-use-cookie';
+import Button from './Button';
+import { useEffect } from 'react';
+import { fetchLinks, useAppDispatch } from 'store';
 
 const Menu = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const token = getCookie('token');
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+    }
+  }, [token, navigate]);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLinks());
+  }, [dispatch]);
+
+  const onLogout = () => {
+    setCookie('token', '');
+    navigate('/');
+  };
+
   const linkStyle = (path: string) =>
     `w-full h-12 font-ninoMtavruli flex  items-center text-lg ${
       pathname.includes(path)
@@ -28,10 +53,15 @@ const Menu = () => {
           <img src={Note} alt='' className='w-6 ml-7' />
           <span className='ml-6 flex mt-1'>ბენდის შესახებ</span>
         </Link>
-        <Link to={'/'} className={linkStyle('*')}>
+        <Button
+          type='button'
+          id='logout-btn'
+          className={linkStyle('*')}
+          onClick={onLogout}
+        >
           <img src={Door} alt='' className='w-6 ml-7' />
           <span className='ml-6 flex mt-1'>გადი გარეთ</span>
-        </Link>
+        </Button>
       </ul>
     </div>
   );
