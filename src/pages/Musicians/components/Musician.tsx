@@ -36,6 +36,7 @@ const Musician: React.FC<{
         className='absolute w-10 h-10 flex items-center justify-center border-2 border-white bg-[#C4C4C4] rounded-full left-32 top-32'
       >
         <img
+          id={'avatar-edit-btn-' + props.singer.id}
           src={Camera}
           alt=''
           onClick={() => props.openImgModal(props.memberIndex)}
@@ -50,11 +51,17 @@ const Musician: React.FC<{
       >
         <CircleBtn
           color='#88D06F'
+          id={'detail-btn-' + props.singer.id}
           onClick={() => props.openDetailModal(props.memberIndex)}
         />
-        <CircleBtn color='#F2C94C' onClick={editMusicianHandler} />
+        <CircleBtn
+          color='#F2C94C'
+          onClick={editMusicianHandler}
+          id={'edit-btn-' + props.singer.id}
+        />
         <CircleBtn
           color='#EB5757'
+          id={'delete-btn-' + props.singer.id}
           onClick={() => props.openDeleteModal(props.memberIndex)}
         />
       </div>

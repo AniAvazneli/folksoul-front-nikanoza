@@ -48,10 +48,12 @@ const LinkComponent: React.FC<{
       </a>
       <div id='link-btns' className='ml-auto flex gap-x-14'>
         <CircleBtn
+          id={'edit-btn-' + props.linkObj.name}
           color='#F2C94C'
           onClick={() => navigate('/links/edit/' + props.linkObj.id)}
         />
         <CircleBtn
+          id={'delete-btn-' + props.linkObj.name}
           color='#EB5757'
           onClick={() => props.openDeleteModal(props.linkIndex)}
         />

@@ -97,6 +97,7 @@ const Musicians = () => {
                     : 'bg-[#c4c4c4]'
                 }`}
                 key={index}
+                id={'pagination-' + index}
                 onClick={() => {
                   paginationHandler(index);
                 }}
@@ -108,6 +109,7 @@ const Musicians = () => {
         </div>
         <Link
           to={'/musicians/new'}
+          id='add-new-member-btn'
           className='justify-self-center mt-24 font-ninoMtavruli text-[#3A7DA3] text-lg underline'
         >
           ახალი წევრი გვყავს?
