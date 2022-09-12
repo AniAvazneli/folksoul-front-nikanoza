@@ -1,5 +1,4 @@
 import { Door, Home, Member, Note, YouTube } from 'assets';
-// import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { setCookie } from 'react-use-cookie';
 import { getCookie } from 'react-use-cookie';
