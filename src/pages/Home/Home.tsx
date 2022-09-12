@@ -82,7 +82,6 @@ const Home = () => {
               const calculateZIndex = members.length - indexInSort;
               return (
                 <div
-                  id={'member-' + member.id}
                   key={index}
                   className={`absolute border-2 border-dashed border-[#F2C94C] rounded-full`}
                   style={{
@@ -91,6 +90,7 @@ const Home = () => {
                   }}
                 >
                   <div
+                    id={'member-' + member.id}
                     className={`absolute rounded-full animate-[orbit_6s_linear_infinite] ${
                       !animationStage ? 'pause' : ''
                     }`}
@@ -128,6 +128,7 @@ const Home = () => {
                 className='w-80 h-80 rounded-full border border-[solid #FFFFFF] -mt-40 bg-[radial-gradient(50%_50%_at_50%_50%,_#534571_0%,_#342C46_100%)] drop-shadow-[2px_4px_14px_#000000] flex justify-center items-center'
               >
                 <img
+                  id='info-img'
                   src={
                     clickedSinger && clickedSinger.avatar
                       ? process.env.REACT_APP_ROOT_URL + clickedSinger.avatar

@@ -21,9 +21,7 @@ const Login = () => {
       const response = await login(data);
       setCookie('token', response.data.token, { days: 30 });
       navigate('/dashboard');
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
