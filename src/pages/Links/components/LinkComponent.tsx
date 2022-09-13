@@ -24,7 +24,7 @@ const LinkComponent: React.FC<{
             className='max-w-[2.813rem] h-auto object-cover'
           />
           <button
-            id='image-change-box'
+            id={'image-change-box-' + props.linkObj.id}
             className='absolute w-5 h-5 flex items-center justify-center border-2 border-white bg-[#C4C4C4] rounded-full -right-1 top-4'
           >
             <img
@@ -48,12 +48,12 @@ const LinkComponent: React.FC<{
       </a>
       <div id='link-btns' className='ml-auto flex gap-x-14'>
         <CircleBtn
-          id={'edit-btn-' + props.linkObj.name}
+          id={'edit-btn-' + props.linkObj.id}
           color='#F2C94C'
           onClick={() => navigate('/links/edit/' + props.linkObj.id)}
         />
         <CircleBtn
-          id={'delete-btn-' + props.linkObj.name}
+          id={'delete-btn-' + props.linkObj.id}
           color='#EB5757'
           onClick={() => props.openDeleteModal(props.linkIndex)}
         />
