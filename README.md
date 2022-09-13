@@ -64,6 +64,11 @@ cp .env.example .env
 |   |--- services # request functions
 |   |--- svg # svg components folder
 |   |--- store # redux store folder
+|   |---|--- slices # redux state slices
+|   |---|--- actions # redux state async actions
+|   |---|--- hooks.ts # app redux hooks
+|   |---|--- redux.ts # redux store
+|   |---|--- index.ts # exports from store
 |   |--- types # types files
 - .eslintrc.json  # eslint config file
 - .prettierrc.json  # prettier config file
