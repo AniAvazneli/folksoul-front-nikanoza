@@ -18,8 +18,6 @@ export const fetchMembers = (): ThunkAction<
     try {
       const members = await fetchData();
       dispatch(membersActions.updateMembers(members));
-    } catch (error) {
-      throw new Error('ბენდის წევრებზე ინფორმაცია ვერ მოიძებნა');
-    }
+    } catch (error) {}
   };
 };
