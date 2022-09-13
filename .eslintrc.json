@@ -5,6 +5,7 @@
     ],
     "plugins": [
         "prettier",
+        "cypress",
         "@typescript-eslint"
     ],
     "rules": {

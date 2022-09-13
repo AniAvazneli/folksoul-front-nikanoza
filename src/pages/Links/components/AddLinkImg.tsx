@@ -80,7 +80,7 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       </div>
       <input
         placeholder='image'
-        id='musician-avatar-input'
+        id='link-avatar-input'
         className=''
         type='file'
         onChange={fileChangeHandler}
@@ -99,7 +99,7 @@ const AddLinkImg: React.FC<{ close: () => void; link: link }> = (props) => {
       )}
       {fileSelected && (
         <Button
-          id='musician-img-sent'
+          id='link-img-sent'
           className='w-40 h-10 bg-[#53C02C] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
           onClick={onSubmit}

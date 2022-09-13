@@ -1,5 +1,10 @@
-const CircleBtn: React.FC<{ color: string; onClick: () => void }> = (props) => (
+const CircleBtn: React.FC<{
+  color: string;
+  onClick: () => void;
+  id: string;
+}> = (props) => (
   <svg
+    id={props.id}
     width='24'
     height='24'
     viewBox='0 0 24 24'

@@ -36,7 +36,7 @@ const MusicianForm = () => {
       id: member?.id || 0,
       avatar: member?.avatar || '',
     };
-    if (member && token) {
+    if (member) {
       try {
         await updateMember({
           member: refactorData,
@@ -47,9 +47,8 @@ const MusicianForm = () => {
         navigate('/musicians');
       } catch (error) {
         const errorObj = error.response.data[0];
-        const label = errorObj.context.label;
         const errorText = errorObj.message;
-        setError(label, {
+        setError('name', {
           type: 'custom',
           message: '*' + errorText,
         });
@@ -61,9 +60,8 @@ const MusicianForm = () => {
         navigate('/musicians');
       } catch (error) {
         const errorObj = error.response.data[0];
-        const label = errorObj.context.label;
         const errorText = errorObj.message;
-        setError(label, {
+        setError('name', {
           type: 'custom',
           message: '*' + errorText,
         });
@@ -126,7 +124,7 @@ const MusicianForm = () => {
         <Input
           label='orbitLength'
           placeholder='ორბიტის სიგრძე'
-          id='new-musician-instrument'
+          id='new-musician-orbit'
           className={`w-40 h-14 border rounded-md text-center ${
             errors.orbitLength ? 'border-[#ec3030]' : 'border-[#143B52]'
           }`}
@@ -174,7 +172,7 @@ const MusicianForm = () => {
       <Textarea
         label='biography'
         placeholder='მუსიკოსის შესახებ'
-        id='new-musician-instrument'
+        id='new-musician-biography'
         className={`w-1/2 h-60 p-3 resize-none border rounded-md ${
           errors.biography ? 'border-[#ec3030]' : 'border-[#143B52]'
         }`}

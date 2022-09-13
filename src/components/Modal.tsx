@@ -10,6 +10,7 @@ const Modal: React.FC<{ children: ReactNode; close: () => void }> = (props) => {
   };
   return (
     <div
+      id='backdrop'
       className='w-full h-full absolute bg-[#042639] opacity-[0.97] flex justify-center items-center'
       ref={backdrop}
       onClick={closeModalHandler}

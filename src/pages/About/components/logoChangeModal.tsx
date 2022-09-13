@@ -66,7 +66,7 @@ const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
       />
       <input
         placeholder='image'
-        id='musician-avatar-input'
+        id='band-avatar-input'
         className=''
         type='file'
         onChange={fileChangeHandler}
@@ -88,7 +88,7 @@ const LogoChangeModal: React.FC<{ close: () => void }> = (props) => {
       )}
       {fileSelected && (
         <Button
-          id='musician-img-sent'
+          id='band-img-sent'
           className='w-40 h-10 bg-[#53C02C] rounded-md mt-7 font-ninoMtavruli text-white text-lg'
           type='button'
           onClick={onSubmit}

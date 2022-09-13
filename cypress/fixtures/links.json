@@ -1,0 +1,22 @@
+{
+    "links": [
+        {
+          "name": "F1",
+          "link": "https://www.formula1.com",
+          "id": 1,
+          "logo": "/storage/2022-09-10T18:48:27.131Zformula-1-logo-5-3.png"
+        },
+        {
+          "name": "So Many Problems",
+          "link": "https://so-many-problems.ge",
+          "id": 3,
+          "logo": null
+        },
+        {
+          "name": "TikTok",
+          "link": "https://www.tiktok.com/",
+          "id": 4,
+          "logo": null
+        }
+      ]
+}

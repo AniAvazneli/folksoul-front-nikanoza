@@ -18,8 +18,6 @@ export const fetchLinks = (): ThunkAction<
     try {
       const links = await fetchData();
       dispatch(linksActions.getLinksInfo(links));
-    } catch (error) {
-      throw new Error('სოციალურ ბმულებზე ინფორმაცია ვერ მოიძებნა');
-    }
+    } catch (error) {}
   };
 };

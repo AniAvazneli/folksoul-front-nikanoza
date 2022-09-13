@@ -26,12 +26,9 @@ const EditBand = () => {
       dispatch(fetchBandInfo());
       navigate('/about');
     } catch (error) {
-      const errorObj = error.response.data[0];
-      const label = errorObj.context.label;
-      const errorText = errorObj.message;
-      setError(label, {
+      setError('about', {
         type: 'custom',
-        message: '*' + errorText,
+        message: '* მონაცემები არავალიდურია',
       });
     }
   };
@@ -51,7 +48,7 @@ const EditBand = () => {
             <Textarea
               label='about'
               placeholder='ბენდის შესახებ ...'
-              id='abount-band-textarea'
+              id='about-band-textarea'
               className='w-full h-full bg-transparent text-justify font-arial text-base pr-14 resize-none border-none outline-none'
               register={register}
               validation={{

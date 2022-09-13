@@ -12,6 +12,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LoginFormValues>();
 
   const navigate = useNavigate();
@@ -22,7 +23,10 @@ const Login = () => {
       setCookie('token', response.data.token, { days: 30 });
       navigate('/dashboard');
     } catch (error) {
-      console.log(error);
+      setError('name', {
+        type: 'custom',
+        message: '* მონაცემები არასწორია',
+      });
     }
   };
 

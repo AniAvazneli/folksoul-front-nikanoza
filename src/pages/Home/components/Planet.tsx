@@ -29,6 +29,7 @@ const Planet: React.FC<{
 
   return (
     <div
+      id={'animation-' + props.singer.id}
       className={
         `${
           props.clickedSinger?.name === props.singer.name

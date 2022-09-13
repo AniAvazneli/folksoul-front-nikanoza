@@ -41,12 +41,10 @@ const LinkForm = () => {
         dispatch(linksActions.updateLink(updateLink));
         navigate('/links');
       } catch (error) {
-        const errorObj = error.response.data[0];
-        const label = errorObj.context.label;
-        const errorText = errorObj.message;
-        setError(label, {
+        setError('name', {
           type: 'custom',
-          message: '*' + errorText,
+          message:
+            '* მონაცემები არავალიდურია ან ბმული ამ სახელით უკვე არსებობს',
         });
       }
     } else {
@@ -55,12 +53,10 @@ const LinkForm = () => {
         dispatch(linksActions.addNewLink(newLink));
         navigate('/links');
       } catch (error) {
-        const errorObj = error.response.data[0];
-        const label = errorObj.context.label;
-        const errorText = errorObj.message;
-        setError(label, {
+        setError('name', {
           type: 'custom',
-          message: '*' + errorText,
+          message:
+            '* მონაცემები არავალიდურია ან ბმული ამ სახელით უკვე არსებობს',
         });
       }
     }
@@ -80,7 +76,13 @@ const LinkForm = () => {
         id='link-form-name'
         type='text'
         register={register}
-        validation={{}}
+        validation={{
+          required: '*სახელის ველი არ უნდა იყოს ცარიელი',
+          minLength: {
+            value: 2,
+            message: '*სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს',
+          },
+        }}
         defaultValue={link ? link.name : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
@@ -95,14 +97,22 @@ const LinkForm = () => {
         id='link-form-link'
         type='text'
         register={register}
-        validation={{}}
+        validation={{
+          required: '*ბმული არ უნდა იყოს ცარიელი',
+          validate: {
+            start: (value: string) =>
+              value.startsWith('https://') ||
+              value.startsWith('http://') ||
+              '*ბმული არ არის ვალიდური',
+          },
+        }}
         defaultValue={link ? link.link : ''}
       />
       <div className='h-9 flex text-[#ec3030] font-ninoMtavruli justify-center items-center'>
         {errors.link && errors.link.message}
       </div>
       <Button
-        id='add-musician-btn'
+        id='add-link-btn'
         type='submit'
         className='w-72 h-12 mt-14 flex justify-center items-center font-ninoMtavruli text-lg text-white bg-[#143B52] rounded-md'
       >
@@ -110,7 +120,7 @@ const LinkForm = () => {
       </Button>
       <Link
         to={'/links'}
-        id='back-musician-btn'
+        id='back-links-btn'
         type='button'
         className='mt-10 font-ninoMtavruli font-bold text-lg text-[#3A7DA3] underline'
       >
