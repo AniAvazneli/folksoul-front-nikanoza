@@ -50,6 +50,7 @@ const Links = () => {
             ))}
         </ul>
         <Link
+          id='add-links-btn'
           to={'/links/new'}
           className='font-ninoMtavruli text-[#3A7DA3] underline mt-20'
         >

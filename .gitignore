@@ -11,6 +11,13 @@
 # defloyment
 /build
 
+# testing
+/coverage
+.nyc_output
+cypress/vidoes
+cypress/screenshots
+cypress.config.ts
+
 # misc
 .DS_Store
 .env.local

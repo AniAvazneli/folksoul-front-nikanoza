@@ -24,13 +24,13 @@ describe('test band member page', () => {
       });
     });
     cy.get('[id=sign-up-btn]').click();
-    cy.visit('/musicians');
     cy.fixture('members').then((json) => {
       cy.intercept('GET', Cypress.env('api_server') + '/singers', {
         statusCode: 200,
         body: json.members,
       });
     });
+    cy.visit('/musicians');
   });
   it('check if pagination buttons works correctly', () => {
     cy.get('[id=pagination-3]').click();
@@ -56,11 +56,57 @@ describe('test band member page', () => {
     cy.get('[id=close-add-modal-btn]').click();
     cy.get('[id=close-add-modal-btn]').should('not.exist');
   });
-  it('if user click the camera icon image change modal should be show', () =>
-    () => {
-      cy.get('[id=avatar-edit-btn-1]').click();
-      cy.get('[id=close-add-modal-btn]').should('exist');
-      cy.get('[id=close-add-modal-btn]').click();
-      cy.get('[id=close-add-modal-btn]').should('not.exist');
+  it('if user click the camera icon image change modal should be show', () => {
+    cy.get('[id=avatar-edit-btn-1]').click();
+    cy.get('[id=close-add-modal-btn]').should('exist');
+    cy.get('[id=close-add-modal-btn]').click();
+    cy.get('[id=close-add-modal-btn]').should('not.exist');
+  });
+  it('user can upload avatar', () => {
+    cy.get('[id=avatar-edit-btn-1]').click();
+    cy.get('input[type="file"]').attachFile('test.png');
+    cy.intercept('POST', Cypress.env('api_server') + '/singers-logos/1', {
+      statusCode: 200,
+      body: 'update member logo successfully',
     });
+    cy.get('[id=musician-img-sent]').click();
+  });
+  it('if avatar did not upload error message should be show', () => {
+    cy.get('[id=avatar-edit-btn-1]').click();
+    cy.get('[id=img-upload-btn]').click();
+    cy.get('input[type="file"]').attachFile('test.png');
+    cy.intercept('POST', Cypress.env('api_server') + '/singers-logos/1', {
+      statusCode: 401,
+    });
+    cy.get('[id=musician-img-sent]').click();
+    cy.get('[id=backdrop]')
+      .trigger('mouseleft', { which: 1, pageX: 600, pageY: 100 })
+      .trigger('click', 20, 30);
+  });
+  it('user can update avatar in select valid file', () => {
+    cy.get('[id=avatar-edit-btn-2]').click();
+    cy.get('[id=img-upload-btn]').click();
+    cy.get('input[type="file"]').attachFile('test.png');
+    cy.intercept('PUT', Cypress.env('api_server') + '/singers-logos/edit/2', {
+      statusCode: 200,
+    });
+    cy.get('[id=musician-img-sent]').click();
+  });
+  it('if avatar did not upload error message should be show', () => {
+    cy.get('[id=avatar-edit-btn-2]').click();
+    cy.get('[id=img-upload-btn]').click();
+    cy.get('input[type="file"]').attachFile('test-big.png');
+    cy.intercept('PUT', Cypress.env('api_server') + '/singers-logos/edit/2', {
+      statusCode: 401,
+    });
+    cy.get('[id=musician-img-sent]').click();
+    cy.get('[id=close-add-modal-btn]').click();
+  });
+  it('user can delete member', () => {
+    cy.get('[id=delete-btn-2]').click();
+    cy.intercept('DELETE', Cypress.env('api_server') + '/singers/delete/2', {
+      statusCode: 200,
+    });
+    cy.get('[id=musician-del-btn]').click();
+  });
 });

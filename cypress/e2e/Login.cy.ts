@@ -10,6 +10,15 @@ describe('testing login page', () => {
     cy.contains('მეტსახელის ველი ცარიელია');
     cy.contains('პაროლის ველი ცარიელია');
   });
+  it('if user enter incorrect data error message should display', () => {
+    cy.get('[id=username]').type('ნიუტონა');
+    cy.get('[id=password]').type('dardubala');
+    cy.intercept('POST', Cypress.env('api_server') + '/login', {
+      statusCode: 401,
+    });
+    cy.get('[id=sign-up-btn]').click();
+    cy.contains('მონაცემები არასწორია');
+  });
   it('if user enter valid values should be redirected on dashboard page', () => {
     cy.get('[id=username]').type('nikanoza');
     cy.get('[id=password]').type('dardubala');
