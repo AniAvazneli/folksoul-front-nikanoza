@@ -14,10 +14,10 @@ describe('test links page', () => {
     });
     cy.visit('/links');
   });
-  //   it('if user click add new social link button should redirected new link page', () => {
-  //     cy.get('[id=add-links-btn]').click();
-  //     cy.url().should('include', '/links/new');
-  //   });
+  it('if user click add new social link button should redirected new link page', () => {
+    cy.get('[id=add-links-btn]').click();
+    cy.url().should('include', '/links/new');
+  });
   it('user can change social link logo', () => {
     cy.get('[id=image-change-box-1]').click();
     cy.get('[id=img-upload-btn]').click();

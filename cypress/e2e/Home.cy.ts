@@ -30,4 +30,7 @@ describe('testing home page', () => {
       .invoke('attr', 'src')
       .should('not.include', 'storage');
   });
+  it('if user did not authorized yet', () => {
+    cy.visit('/links');
+  });
 });
