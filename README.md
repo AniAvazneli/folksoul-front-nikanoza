@@ -2,7 +2,7 @@
 
 # Folksoul
 
-### Best musician bend in the world
+### Best musician band in the world
 
 ### Table of Contents
 * [Prerequisites](#Prerequisites)
